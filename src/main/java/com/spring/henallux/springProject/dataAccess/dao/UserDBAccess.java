@@ -6,6 +6,8 @@ import com.spring.henallux.springProject.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public class UserDBAccess implements UserDataAccess{
 
@@ -26,6 +28,14 @@ public class UserDBAccess implements UserDataAccess{
     @Override
     public User findByUsername(String username) {
         return providerConverter.userEntityToUserModel(userRepository.findByUsername(username));
+    }
+
+    @Override
+    public ArrayList<User> findAll() {
+        return new ArrayList<>(userRepository.findAll()
+                .stream()
+                .map(userEntity -> providerConverter.userEntityToUserModel(userEntity))
+                .toList());
     }
 
 }
