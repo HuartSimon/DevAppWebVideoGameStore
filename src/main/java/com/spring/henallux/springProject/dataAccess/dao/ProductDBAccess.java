@@ -3,7 +3,6 @@ package com.spring.henallux.springProject.dataAccess.dao;
 import com.spring.henallux.springProject.dataAccess.entity.ProductEntity;
 import com.spring.henallux.springProject.dataAccess.repository.ProductRepository;
 import com.spring.henallux.springProject.dataAccess.util.ProviderConverter;
-import com.spring.henallux.springProject.model.Category;
 import com.spring.henallux.springProject.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,15 +35,4 @@ public class ProductDBAccess implements ProductDataAccess {
         }
         return productsModel;
     }
-
-    @Override
-    public ArrayList<Product> findByCategory(Category category) {
-        List<ProductEntity> productsEntities = productRepository.findByCategory(providerConverter.categoryModelToCategoryEntity(category));
-        ArrayList<Product> productsModel = new ArrayList<>();
-        for (ProductEntity productEntity : productsEntities) {
-            productsModel.add(providerConverter.productEntityToProductModel(productEntity));
-        }
-        return productsModel;
-    }
-
 }

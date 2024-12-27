@@ -1,8 +1,7 @@
 package com.spring.henallux.springProject.model;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Order {
     private Integer id;
@@ -10,11 +9,12 @@ public class Order {
     private Boolean isPayed;
     private User user;
 
+
     public Order() {}
     public Order(Integer id, LocalDate orderDate, Boolean isPayed, User user) {
         setId(id);
         setOrderDate(orderDate);
-        setIsPayed(isPayed);
+        setPayed(isPayed);
         setUser(user);
     }
 
@@ -25,17 +25,18 @@ public class Order {
     public void setOrderDate(LocalDate orderDate) {
         this.orderDate = orderDate;
     }
-    public void setIsPayed(Boolean payed) {
+    public void setPayed(Boolean payed) {
         isPayed = payed;
     }
     public void setUser(User user) {
         this.user = user;
     }
 
+
     public Integer getId() {
         return id;
     }
-    public Boolean getIsPayed() {
+    public Boolean getPayed() {
         return isPayed;
     }
     public LocalDate getOrderDate() {

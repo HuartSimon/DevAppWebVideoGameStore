@@ -9,7 +9,6 @@ import javax.persistence.*;
 public class ProductEntity {
     @Id
     @Column(name="id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name="name")
@@ -26,7 +25,9 @@ public class ProductEntity {
     private CategoryEntity category;
 
 
-    public ProductEntity() {}
+    public ProductEntity() {
+    }
+
     public ProductEntity(Integer id, String name, String description, Double price, CategoryEntity category) {
         setId(id);
         setName(name);

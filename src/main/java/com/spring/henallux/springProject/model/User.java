@@ -1,43 +1,41 @@
 package com.spring.henallux.springProject.model;
 
-import org.springframework.format.annotation.NumberFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Service;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 public class User implements UserDetails {
-    @Size(min = 1, max = 50)
+    @NotNull
     private String username;
-    @Size(min = 1, max = 50)
+    @NotNull
     private String firstName;
-    @Size(min = 1, max = 50)
+    @NotNull
     private String lastName;
-    @NotEmpty
-    @Size(max = 50)
+    @NotNull
     @Email
     private String email;
-    @Size(max = 100)
-    @NotEmpty
+    @NotNull
     private String address;
-    @NotEmpty
+    @NotNull
     private String password;
-    @NotEmpty
-    @Size(max = 15)
-    @Pattern(regexp = "^\\+?[0-9 ]{1,15}$",
-            message = "! Invalid phone number format. The phone number must start with an optional '+' for international numbers, contain only digits and spaces, and be between 1 and 15 characters long.")
+    @NotNull
     private String phoneNumber;
     private Boolean isMan;
-    @Size(max = 200)
+    @NotNull
     private String authorities;
+    @NotNull
     private Boolean accountNonExpired;
+    @NotNull
     private Boolean accountNonLocked;
+    @NotNull
     private Boolean credentialsNonExpired;
+    @NotNull
     private Boolean enabled;
 
 
@@ -50,19 +48,16 @@ public class User implements UserDetails {
         setAddress(address);
         setPassword(password);
         setPhoneNumber(phoneNumber);
-        setIsMan(isMan);
+        setMan(isMan);
         setAuthorities(authorities);
         setAccountNonExpired(accountNonExpired);
         setAccountNonLocked(accountNonLocked);
         setCredentialsNonExpired(credentialsNonExpired);
         setEnabled(enabled);
     }
-    public User(String username, String firstName, String lastName, String email, String address, String password, String phoneNumber, Boolean isMan) {
-        this(username, firstName, lastName, email, address, password, phoneNumber, isMan, "ROLE_USER", true, true, true, true);
-    }
 
 
-        @Override
+    @Override
     public Collection<GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
 
@@ -88,22 +83,21 @@ public class User implements UserDetails {
     public String getUsername() {
         return username;
     }
-
-    // x != null ? x : false (Car on implemente UserDetails qui a des méthodes boolean (type primitif qui ne peut être null)
-    // Donc si null -> renvoyer false
     @Override
     public boolean isAccountNonExpired() {
-        return accountNonExpired != null ? accountNonExpired : false;
+        return accountNonExpired;
     }
     @Override
     public boolean isAccountNonLocked() {
-        return accountNonLocked != null ? accountNonLocked : false;
+        return accountNonLocked;
     }
     @Override
-    public boolean isCredentialsNonExpired() {return credentialsNonExpired != null ? credentialsNonExpired : false;}
+    public boolean isCredentialsNonExpired() {
+        return credentialsNonExpired;
+    }
     @Override
     public boolean isEnabled() {
-        return enabled != null ? enabled : false;
+        return enabled;
     }
 
 
@@ -122,7 +116,7 @@ public class User implements UserDetails {
     public String getPhoneNumber() {
         return phoneNumber;
     }
-    public Boolean getIsMan() {
+    public Boolean getMan() {
         return isMan;
     }
 
@@ -148,7 +142,7 @@ public class User implements UserDetails {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-    public void setIsMan(Boolean man) {
+    public void setMan(Boolean man) {
         isMan = man;
     }
     public void setAuthorities(String authorities) {

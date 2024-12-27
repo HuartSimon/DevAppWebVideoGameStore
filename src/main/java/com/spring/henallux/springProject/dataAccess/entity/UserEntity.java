@@ -58,7 +58,7 @@ public class UserEntity {
         setAddress(address);
         setPassword(password);
         setPhoneNumber(phoneNumber);
-        setIsMan(isMan);
+        setMan(isMan);
         setAuthorities(authorities);
         setAccountNonExpired(accountNonExpired);
         setAccountNonLocked(accountNonLocked);
@@ -122,11 +122,11 @@ public class UserEntity {
         this.phoneNumber = phoneNumber;
     }
 
-    public Boolean getIsMan() {
+    public Boolean getMan() {
         return isMan;
     }
 
-    public void setIsMan(Boolean man) {
+    public void setMan(Boolean man) {
         isMan = man;
     }
 
