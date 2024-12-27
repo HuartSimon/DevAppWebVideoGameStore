@@ -97,7 +97,7 @@ public class ProviderConverter {
         order.setUser(userEntityToUserModel(orderEntity.getUser()));
         order.setOrderDate(orderEntity.getOrderDate());
         order.setId(orderEntity.getId());
-        order.setPayed(orderEntity.getPayed());
+        order.setIsPayed(orderEntity.getPayed());
 
         return order;
 
@@ -108,7 +108,7 @@ public class ProviderConverter {
         OrderEntity orderEntity = new OrderEntity();
         orderEntity.setOrderDate(order.getOrderDate());
         orderEntity.setId(order.getId());
-        orderEntity.setPayed(order.getPayed());
+        orderEntity.setPayed(order.getIsPayed());
         orderEntity.setUser(userModelToUserEntity(order.getUser()));
 
         return orderEntity;

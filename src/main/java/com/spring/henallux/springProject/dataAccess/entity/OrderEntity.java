@@ -8,6 +8,7 @@ import java.time.LocalDate;
 public class OrderEntity {
     @Column(name = "id")
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "order_date")

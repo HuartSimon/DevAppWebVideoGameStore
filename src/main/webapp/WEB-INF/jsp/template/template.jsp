@@ -9,16 +9,22 @@
 <body>
     <header>
         <a href="<spring:url value="/home"/>">Home</a>
+        <a href="<spring:url value="/products"/>">Shop</a>
+        <a href="<spring:url value="/company"/>">Company</a>
+        <a href="<spring:url value="/cart"/>">My cart</a>
+
 
         <sec:authorize access="isAuthenticated()">
             <p>Welcome ${pageContext.request.userPrincipal.principal.username} !</p>
             <a href="<spring:url value="/logout"/>">Log out</a>
             <a href="<spring:url value="/myPage"/>">My Page</a>
-
+            <a href="<spring:url value="/editAccount"/>">Edit Account</a>
+            <a href="<spring:url value="/myOrders"/>">My orders</a>
         </sec:authorize>
 
         <sec:authorize access="!isAuthenticated()">
             <a href="<spring:url value="/login"/>">Log in</a>
+            <a href="<spring:url value="/signUp"/>">Sign up</a>
         </sec:authorize>
     </header>
     <main>

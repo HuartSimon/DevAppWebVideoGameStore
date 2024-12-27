@@ -18,18 +18,18 @@ DROP TABLE IF EXISTS category;
 -- TABLE
 CREATE TABLE user (
     username                    VARCHAR(50)     PRIMARY KEY,
-    first_name                  VARCHAR(50)     NOT NULL,
-    last_name                   VARCHAR(50)     NOT NULL,
-    email                       VARCHAR(50)     NOT NULL,
-    address                     VARCHAR(50)     NOT NULL,
-    password                    VARCHAR(60)     NOT NULL,
-    phone_number                VARCHAR(15)     NOT NULL,
-    is_man                      TINYINT(1)      NULL,
-    authorities                 VARCHAR(500)    NOT NULL,
-    non_expired                 TINYINT(1)      NOT NULL,
-    non_locked                  TINYINT(1)      NOT NULL,
-    credentials_non_expired     TINYINT(1)      NOT NULL,
-    enabled                     TINYINT(1)      NOT NULL
+    first_name                  VARCHAR(50)     NOT     NULL,
+    last_name                   VARCHAR(50)     NOT     NULL,
+    email                       VARCHAR(50)     NOT     NULL,
+    address                     VARCHAR(50)     NOT     NULL,
+    password                    VARCHAR(60)     NOT     NULL,
+    phone_number                VARCHAR(15)     NOT     NULL,
+    is_man                      TINYINT(1)      DEFAULT NULL,
+    authorities                 VARCHAR(500)    DEFAULT NULL,
+    non_expired                 TINYINT(1)      DEFAULT NULL,
+    non_locked                  TINYINT(1)      DEFAULT NULL,
+    credentials_non_expired     TINYINT(1)      DEFAULT NULL,
+    enabled                     TINYINT(1)      DEFAULT NULL
 );
 
 CREATE TABLE `order` (

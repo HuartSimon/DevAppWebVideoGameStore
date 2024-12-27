@@ -1,5 +1,6 @@
 package com.spring.henallux.springProject.dataAccess.entity;
 
+
 import javax.persistence.*;
 
 @Entity
@@ -7,6 +8,7 @@ import javax.persistence.*;
 public class OrderLineEntity {
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "quantity")
