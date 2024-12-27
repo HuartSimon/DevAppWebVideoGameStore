@@ -1,7 +1,12 @@
 package com.spring.henallux.springProject.model;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Positive;
+
 public class OrderLine {
     private Integer id;
+    @Min(value = 1)
     private Integer quantity;
     private Double price;
     private Double discount;

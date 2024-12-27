@@ -1,5 +1,6 @@
 package com.spring.henallux.springProject.dataAccess.dao;
 
+import com.spring.henallux.springProject.dataAccess.entity.UserEntity;
 import com.spring.henallux.springProject.dataAccess.repository.UserRepository;
 import com.spring.henallux.springProject.dataAccess.util.ProviderConverter;
 import com.spring.henallux.springProject.model.User;
@@ -21,13 +22,25 @@ public class UserDBAccess implements UserDataAccess{
     }
 
     @Override
-    public void saveUser(User user) {
-        userRepository.save(providerConverter.userModelToUserEntity(user));
+    public User saveUser(User user) {
+        UserEntity userEntity = userRepository.save(providerConverter.userModelToUserEntity(user));
+        return providerConverter.userEntityToUserModel(userEntity);
     }
 
     @Override
     public User findByUsername(String username) {
-        return providerConverter.userEntityToUserModel(userRepository.findByUsername(username));
+        UserEntity user =  userRepository.findByUsername(username);
+        if (user != null)
+            return providerConverter.userEntityToUserModel(user);
+        else return null;
+    }
+
+    @Override
+    public User findByEmail(String email) {
+        UserEntity user =  userRepository.findByEmail(email);
+        if (user != null)
+            return providerConverter.userEntityToUserModel(user);
+        else return null;
     }
 
     @Override
@@ -38,4 +51,8 @@ public class UserDBAccess implements UserDataAccess{
                 .toList());
     }
 
+    @Override
+    public void deleteUser(User user) {
+        userRepository.delete(providerConverter.userModelToUserEntity(user));
+    }
 }

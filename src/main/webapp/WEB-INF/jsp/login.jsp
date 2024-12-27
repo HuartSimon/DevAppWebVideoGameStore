@@ -3,12 +3,12 @@
 
 <h1>Login</h1>
 
-<form:form method="post" modelAttribute="user">
+<form:form method="post" modelAttribute="currentUser">
     <form:label path="username">Username</form:label>
     <form:input path="username"/>
 
     <form:label path="password">Password</form:label>
-    <form:input path="password"/>
+    <form:password path="password"/>
 
     <c:if test="${param.error}">
         <p>Invalid username or password. Please try again.</p>
