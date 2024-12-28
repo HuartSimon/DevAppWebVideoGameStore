@@ -67,7 +67,6 @@ public class CartController {
             order.setUser(user);
             order.setId(null);
             order = orderService.saveOrder(order);
-            System.out.println("SAVE : ORDER id="+order.getId());
             // Save all the orderLines of the order
             for (OrderLine orderLine : cart.getOrderLines().values()) {
                 orderLine.setOrder(order);
@@ -77,10 +76,9 @@ public class CartController {
 
                 orderLine.setId(null); // Remove the session ID to assure the auto incremented ID in the DB
                 orderLine = orderLineService.saveOrderLine(orderLine);
-                System.out.println("SAVE : ORDERLINE id="+orderLine.getId()+" TO ORDER id="+order.getId());
             }
             cart.clear();
-            return "redirect:/home"; // A FAIRE : Redirect vers la page de paiement
+            return "redirect:/payment/" + order.getId();
         }
     }
 

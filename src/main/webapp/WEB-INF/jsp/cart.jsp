@@ -2,8 +2,6 @@
 <%@include file="./include/importTags.jsp"%>
 
 <h1>Your cart</h1>
-<p>CURRENT_USER : ${currentUser}</p>
-<p>OrderLines : ${orderLines}</p>
 
 <c:if test="${empty orderLines}">
     <p>Your cart is empty.</p>

@@ -27,5 +27,9 @@ public class OrderService {
         return orderDAO.findByUser(user);
     }
 
+    public Order getOrderById(int orderId) {
+        return orderDAO.findById(orderId);
+    }
+
 
 }

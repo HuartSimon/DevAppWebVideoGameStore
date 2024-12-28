@@ -7,9 +7,9 @@
     <c:forEach items="${ordersWithPrice}" var="ordersWithPrice">
         <li>
             Order date : ${ordersWithPrice.order.orderDate}<br>
-            Is payed : ${ordersWithPrice.order.isPayed ? "yes" : "no"}<br>
+            Status : ${ordersWithPrice.order.isPayed ? "payed" : "not payed"}<br>
             Price : ${ordersWithPrice.orderPrice}$<br>
-            <a href="<spring:url value="/myOrders/${order.id}"/>">More details</a>
+            <a href="<spring:url value="/orderDetails/${ordersWithPrice.order.id}"/>">More details</a>
         </li><br>
     </c:forEach>
 </ul>
