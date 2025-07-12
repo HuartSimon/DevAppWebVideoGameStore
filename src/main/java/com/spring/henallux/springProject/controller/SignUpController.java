@@ -34,15 +34,15 @@ public class SignUpController {
     @RequestMapping(method = RequestMethod.POST)
     public String submitSignup(@RequestParam("confirmedPassword") String confirmedPassword, Model model, @Valid @ModelAttribute(value = Constants.CURRENT_USER) User user, BindingResult errors) {
         if (userService.isUsernameAlreadyTaken(user.getUsername())) {
-            model.addAttribute("usernameError", " ! Username is already taken, please choose another one");
+            model.addAttribute("usernameError", true);
             return "integrated:signUp";
         }
         if (userService.isEmailAlreadyTaken(user.getEmail())) {
-            model.addAttribute("emailError", " ! E-mail is already taken, please choose another one");
+            model.addAttribute("emailError", true);
             return "integrated:signUp";
         }
         if(!(user.getPassword().equals(confirmedPassword))) {
-            model.addAttribute("passwordError", " ! Passwords do not match");
+            model.addAttribute("passwordError", true);
             return "integrated:signUp";
         }
         if (errors.hasErrors()) {

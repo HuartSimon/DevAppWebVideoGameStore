@@ -1,7 +1,7 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html;charset=UTF-8"%>
 <%@include file="./include/importTags.jsp"%>
 
-<h1>PayPal Payment</h1>
+<h1><spring:message code="paypalPayment.title"/></h1>
 
 <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
     <!-- PayPal Required Fields -->
@@ -18,15 +18,13 @@
     <input type="hidden" name="lc" value="en_US"> <!-- Locale for checkout page -->
     <input type="hidden" name="locale.x" value="en_US">
 
-    <!-- JE SUIS OBLIGER DE METTRE localhost:3002 ? COMMENT FAIRE AUTREMENT ?-->
     <input type="hidden" name="return" value="http://localhost:3002${pageContext.request.contextPath}/payment/${order.id}/paymentSuccess"> <!-- Success URL -->
     <input type="hidden" name="cancel_return" value="http://localhost:3002${pageContext.request.contextPath}/payment/${order.id}/paymentFailed"> <!-- Cancel URL -->
 
-
     <!-- Submit Button -->
-    <button type="submit">Pay now with PayPal</button>
+    <button type="submit"><spring:message code="paypalPayment.payButton"/></button>
 </form>
 <form action="<spring:url value="/myOrders"/>" method="GET">
-    <button type="submit">Pay later</button>
+    <button type="submit"><spring:message code="paypalPayment.payLaterButton"/></button>
 </form>
 

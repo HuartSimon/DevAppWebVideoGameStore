@@ -33,7 +33,7 @@ public class MainConfiguration implements WebMvcConfigurer {
     }
 
     // to configure interceptors
-    // add a interceptor to change the locale and save it in the localeCookie
+    // add an interceptor to change the locale and save it in the localeCookie
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         LocaleChangeInterceptor interceptor = new LocaleChangeInterceptor();

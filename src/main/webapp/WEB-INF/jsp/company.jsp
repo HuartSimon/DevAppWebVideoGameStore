@@ -1,2 +1,4 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<h1>Our Company</h1>
+<%@include file="./include/importTags.jsp"%>
+
+<h1><spring:message code="company.title" /></h1>

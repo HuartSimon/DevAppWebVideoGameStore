@@ -34,11 +34,11 @@ public class ChangePasswordController {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
         if(!(encoder.matches(oldPassword, user.getPassword()))) {
-            model.addAttribute("oldPasswordError", "The old password is incorrect.");
+            model.addAttribute("oldPasswordError", true);
             return "integrated:changePassword";
         }
         if (!newPassword.equals(confirmedNewPassword)) {
-            model.addAttribute("confirmedNewPasswordError", "The new password and the confirmation of the new password do not match.");
+            model.addAttribute("confirmedNewPasswordError", true);
             return "integrated:changePassword";
         }
 
