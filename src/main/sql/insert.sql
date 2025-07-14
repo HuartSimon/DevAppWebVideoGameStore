@@ -23,16 +23,8 @@ VALUES
 -- Insertion dans la table `language`
 INSERT INTO language (label)
 VALUES
-    ('English'),
-    ('French'),
-    ('Spanish'),
-    ('German'),
-    ('Italian'),
-    ('Portuguese'),
-    ('Russian'),
-    ('Chinese'),
-    ('Japanese'),
-    ('Arabic');
+    ('en'),
+    ('fr');
 
 -- Insertion dans la table `category`
 INSERT INTO category ()
@@ -53,52 +45,29 @@ VALUES
 INSERT INTO translation (name, description, category, language)
 VALUES
     -- French Translations
-    ('Consoles Gaming', 'Les meilleures consoles de jeu pour les gamers', 1, 'French'),
-    ('PC Gaming', 'Composants et configurations pour PC gaming', 2, 'French'),
-    ('Consoles Portables', 'Consoles portable pour tous les moments', 3, 'French'),
-    ('Accessoires Gaming', 'Accessoires essentiels pour un jeu de qualité', 4, 'French'),
-    ('Moniteurs Gaming', 'Moniteurs gaming pour des performances exceptionnelles', 5, 'French'),
-    ('Stockage Gaming', 'Solutions de stockage rapide pour vos jeux', 6, 'French'),
-    ('Composants PC', 'Composants PC performants pour un gaming fluide', 7, 'French'),
-    ('Cartes Graphiques', 'Cartes graphiques puissantes pour des visuels réalistes', 8, 'French'),
-    ('Processeurs', 'Processeurs haute performance pour les gamers', 9, 'French'),
-    ('Accessoires Divers', 'Accessoires divers pour le gaming', 10, 'French'),
+    ('Consoles Gaming', 'Les meilleures consoles de jeu pour les gamers', 1, 'fr'),
+    ('PC Gaming', 'Composants et configurations pour PC gaming', 2, 'fr'),
+    ('Consoles Portables', 'Consoles portable pour tous les moments', 3, 'fr'),
+    ('Accessoires Gaming', 'Accessoires essentiels pour un jeu de qualité', 4, 'fr'),
+    ('Moniteurs Gaming', 'Moniteurs gaming pour des performances exceptionnelles', 5, 'fr'),
+    ('Stockage Gaming', 'Solutions de stockage rapide pour vos jeux', 6, 'fr'),
+    ('Composants PC', 'Composants PC performants pour un gaming fluide', 7, 'fr'),
+    ('Cartes Graphiques', 'Cartes graphiques puissantes pour des visuels réalistes', 8, 'fr'),
+    ('Processeurs', 'Processeurs haute performance pour les gamers', 9, 'fr'),
+    ('Accessoires Divers', 'Accessoires divers pour le gaming', 10, 'fr'),
 
     -- English Translations
-    ('Gaming Consoles', 'Best gaming consoles for gamers', 1, 'English'),
-    ('PC Gaming', 'PC gaming components and setups', 2, 'English'),
-    ('Portable Gaming', 'Portable gaming consoles for gaming on the go', 3, 'English'),
-    ('Gaming Accessories', 'Essential accessories for quality gaming', 4, 'English'),
-    ('Gaming Monitors', 'Gaming monitors for superior performance', 5, 'English'),
-    ('Gaming Storage', 'Fast storage solutions for your games', 6, 'English'),
-    ('PC Components', 'High-performance PC components for smooth gaming', 7, 'English'),
-    ('Graphics Cards', 'Powerful graphics cards for realistic visuals', 8, 'English'),
-    ('Processors', 'High-performance processors for gamers', 9, 'English'),
-    ('Miscellaneous Gear', 'Various gaming accessories', 10, 'English'),
+    ('Gaming Consoles', 'Best gaming consoles for gamers', 1, 'en'),
+    ('PC Gaming', 'PC gaming components and setups', 2, 'en'),
+    ('Portable Gaming', 'Portable gaming consoles for gaming on the go', 3, 'en'),
+    ('Gaming Accessories', 'Essential accessories for quality gaming', 4, 'en'),
+    ('Gaming Monitors', 'Gaming monitors for superior performance', 5, 'en'),
+    ('Gaming Storage', 'Fast storage solutions for your games', 6, 'en'),
+    ('PC Components', 'High-performance PC components for smooth gaming', 7, 'en'),
+    ('Graphics Cards', 'Powerful graphics cards for realistic visuals', 8, 'en'),
+    ('Processors', 'High-performance processors for gamers', 9, 'en'),
+    ('Miscellaneous Gear', 'Various gaming accessories', 10, 'en');
 
-    -- Spanish Translations
-    ('Consolas de Juego', 'Las mejores consolas de juego para los gamers', 1, 'Spanish'),
-    ('PC Gaming', 'Componentes y configuraciones para PC de juego', 2, 'Spanish'),
-    ('Juegos Portátiles', 'Consolas de juego portátiles para jugar en cualquier lugar', 3, 'Spanish'),
-    ('Accesorios Gaming', 'Accesorios esenciales para un juego de calidad', 4, 'Spanish'),
-    ('Monitores Gaming', 'Monitores de juego para un rendimiento excepcional', 5, 'Spanish'),
-    ('Almacenamiento Gaming', 'Soluciones de almacenamiento rápidas para tus juegos', 6, 'Spanish'),
-    ('Componentes PC', 'Componentes de PC de alto rendimiento para un juego fluido', 7, 'Spanish'),
-    ('Tarjetas Gráficas', 'Tarjetas gráficas potentes pour visuales realistas', 8, 'Spanish'),
-    ('Procesadores', 'Procesadores de alto rendimiento para gamers', 9, 'Spanish'),
-    ('Accesorios Diversos', 'Accesorios diversos pour gaming', 10, 'Spanish'),
-
-    -- Italian Translations
-    ('Console Gaming', 'Le migliori console da gioco per i gamer', 1, 'Italian'),
-    ('PC Gaming', 'Componenti e configurazioni per PC da gioco', 2, 'Italian'),
-    ('Giochi Portatili', 'Console da gioco portatili per ogni momento', 3, 'Italian'),
-    ('Accessori Gaming', 'Accessori essenziali per un gioco di qualità', 4, 'Italian'),
-    ('Monitor Gaming', 'Monitor da gioco per prestazioni superiori', 5, 'Italian'),
-    ('Archiviazione Gaming', 'Soluzioni di archiviazione rapida per i tuoi giochi', 6, 'Italian'),
-    ('Componenti PC', 'Componenti PC ad alte prestazioni per un gioco fluido', 7, 'Italian'),
-    ('Schede Grafiche', 'Schede grafiche potenti per visuali realistici', 8, 'Italian'),
-    ('Processori', 'Processori ad alte prestazioni per i gamer', 9, 'Italian'),
-    ('Accessori Vari', 'Accessori vari per il gaming', 10, 'Italian');
 
 
 -- Insertion dans la table `product` avec les noms des produits correspondants aux catégories
@@ -159,12 +128,12 @@ VALUES
 -- Insertion dans la table `discount`
 INSERT INTO discount (discount_val, begin_date, end_date, category)
 VALUES
-    (0.1, '2024-11-01 00:00:00', '2025-01-30 23:59:59', 1),
-    (0.15, '2024-11-01 00:00:00', '2025-01-30 23:59:59', 2),
-    (0.5, '2024-11-01 00:00:00', '2025-01-30 23:59:59', 3),
-    (0.2, '2024-11-01 00:00:00', '2025-01-30 23:59:59', 4),
-    (0.3, '2024-11-01 00:00:00', '2025-01-30 23:59:59', 5),
-    (0.25, '2024-11-01 00:00:00', '2025-01-30 23:59:59', 6),
+    (0.1, '2024-11-01 00:00:00', '2026-01-30 23:59:59', 1),
+    (0.15, '2024-11-01 00:00:00', '2026-01-30 23:59:59', 2),
+    (0.5, '2024-11-01 00:00:00', '2026-01-30 23:59:59', 3),
+    (0.2, '2024-11-01 00:00:00', '2026-01-30 23:59:59', 4),
+    (0.3, '2024-11-01 00:00:00', '2026-01-30 23:59:59', 5),
+    (0.25, '2024-11-01 00:00:00', '2026-01-30 23:59:59', 6),
     (0.1, '2024-11-01 00:00:00', '2025-01-30 23:59:59', 7),
     (0.5, '2024-11-01 00:00:00', '2025-01-30 23:59:59', 8),
     (0.4, '2024-11-01 00:00:00', '2025-01-30 23:59:59', 9),

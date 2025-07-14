@@ -2,3 +2,4 @@
 <%@include file="./include/importTags.jsp"%>
 
 <h1><spring:message code="company.title" /></h1>
+<p><spring:message code="company.desc" /></p>

@@ -2,6 +2,7 @@ package com.spring.henallux.springProject.controller;
 
 import com.spring.henallux.springProject.model.*;
 import com.spring.henallux.springProject.service.CategoryService;
+import com.spring.henallux.springProject.service.DiscountService;
 import com.spring.henallux.springProject.service.ProductService;
 import com.spring.henallux.springProject.service.TranslationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,30 +24,26 @@ public class ProductsController {
     @Autowired
     private TranslationService translationService;
 
-    @ModelAttribute(Constants.CURRENT_CATEGORY)
-    public Category category() { return new Category(); }
+    @Autowired
+    private DiscountService discountService;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/{categoryId}", method = RequestMethod.GET)
     public String productsGet(Model model,
-                              @RequestParam(value = "category", required = false) Integer categoryId,
-                              @ModelAttribute(Constants.CURRENT_CATEGORY) Category currentCategory) {
-        List<Category> categories = categoryService.getAllCategories();
-        List<Translation> translatedCategories =  new ArrayList<>();
-        for (Category category : categories) {
-            // A FAIRE : mettre langage choisi par le user
-            translatedCategories.add(translationService.getTranslationByCategoryAndLanguage(category, new Language("English")));
-        }
-        model.addAttribute("translatedCategories", translatedCategories);
+                              @PathVariable(value = "categoryId") Integer categoryId, Locale locale) {
 
         List<Product> products;
-        if (categoryId == null) {
-            products = productService.getAllProducts();
-        } else {
-            Category chosenCategory = categoryService.getCategoryById(categoryId);
-            products = productService.getProductsByCategoryId(chosenCategory);
-        }
+        Category chosenCategory = categoryService.getCategoryById(categoryId);
+        products = productService.getProductsByCategoryId(chosenCategory);
+        Translation translatedCategory = translationService.getTranslationByCategoryAndLanguage(chosenCategory, new Language(locale.getLanguage()));
+
         model.addAttribute("products", products);
-        model.addAttribute("selectedCategoryId", categoryId);
+
+        Map<String, Object> finalCategory = new HashMap<>();
+        finalCategory.put("translatedCategory", translatedCategory);
+        Discount dis = discountService.getCurrentAndByCategoryId(chosenCategory.getId());
+        finalCategory.put("discount", dis);
+
+        model.addAttribute("finalCategory", finalCategory);
         return "integrated:products";
     }
 

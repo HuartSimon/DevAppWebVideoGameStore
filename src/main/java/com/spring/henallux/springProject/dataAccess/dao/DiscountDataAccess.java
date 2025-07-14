@@ -6,4 +6,6 @@ import java.util.ArrayList;
 public interface DiscountDataAccess {
     Discount findById(int id);
     ArrayList<Discount> findAll();
+    ArrayList<Discount> getAllCurrent();
+    Discount getCurrentAndByCategoryId(Integer id);
 }

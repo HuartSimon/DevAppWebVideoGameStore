@@ -26,15 +26,24 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html;charset=UTF-8"%>
 <%@include file="./include/importTags.jsp"%>
 
-<!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous"/>
-
 <div class="container mt-5">
+    <c:set var="discount" value='${item.get("discount")}' />
+
     <div class="card shadow p-4">
         <h1 class="mb-3">
             <spring:message code="product.productDetails"/>
             <span class="text-primary">${item.product.name}</span>
-            <small class="text-muted">(${item.product.price}$)</small>
+            <c:choose>
+                <c:when test="${discount != null}">
+                    <span class="text-decoration-line-through text-muted fs-4"> ${item.product.price}$ </span>
+                    <span class="text-danger ms-2 fs-4">
+                        <fmt:formatNumber value="${item.product.price - (discount.discountVal * item.product.price)}" type="number" minFractionDigits="2" maxFractionDigits="2" />$
+                    </span>
+                </c:when>
+                <c:otherwise>
+                    <span class="text-muted fs-4">(${item.product.price}$)</span>
+                </c:otherwise>
+            </c:choose>
         </h1>
 
         <p><strong><spring:message code="product.description"/>:</strong> ${item.product.description}</p>

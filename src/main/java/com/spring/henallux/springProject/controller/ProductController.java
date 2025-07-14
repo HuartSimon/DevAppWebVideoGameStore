@@ -14,10 +14,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping("/product")
@@ -29,6 +26,9 @@ public class ProductController {
     OrderLineService orderLineService;
     @Autowired
     TranslationService translationService;
+
+    @Autowired
+    private DiscountService discountService;
 
     @ModelAttribute(Constants.CURRENT_ORDER_LINE)
     public OrderLine orderLine() { return new OrderLine(); }
@@ -42,19 +42,20 @@ public class ProductController {
     @ModelAttribute(Constants.CURRENT_USER)
     public VisitorUser visitorUser() { return new VisitorUser(); }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String productGet(@PathVariable("id") int id, Model model) {
-        Product product = productService.getProductById(id);
-        // Change value "English" with the Language choosed by the user
-        Language defaultLanguage = new Language("English");
 
-        Translation translatedCategory = translationService.getTranslationByCategoryAndLanguage(product.getCategory(), defaultLanguage);
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public String productGet(@PathVariable("id") int id, Model model, Locale locale) {
+        Product product = productService.getProductById(id);
+
+        Translation translatedCategory = translationService.getTranslationByCategoryAndLanguage(product.getCategory(), new Language(locale.getLanguage()));
+
+        Discount discount = discountService.getCurrentAndByCategoryId(product.getCategory().getId());
 
         Map<String, Object> item = new HashMap<>();
         item.put("product", product);
         item.put("translatedCategory", translatedCategory);
+        item.put("discount", discount);
 
-        model.addAttribute("productId", id);
         model.addAttribute("item", item);
         return "integrated:product";
     }

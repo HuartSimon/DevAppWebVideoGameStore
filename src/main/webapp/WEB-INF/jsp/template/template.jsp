@@ -62,19 +62,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <!-- Spring URL for language switching -->
-    <spring:url var="localeFr" value="">
-        <spring:param name="locale" value="fr"/>
-    </spring:url>
-    <spring:url var="localeEn" value="">
-        <spring:param name="locale" value="en"/>
-    </spring:url>
+    <spring:url var="localeFr" value=""> <spring:param name="locale" value="fr"/> </spring:url>
+    <spring:url var="localeEn" value=""> <spring:param name="locale" value="en"/> </spring:url>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 
 <!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="<spring:url value='/home'/>">MyShop</a>
+        <a class="navbar-brand" href="<spring:url value='/home'/>"><spring:message code="template.brand" /></a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
                 aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -84,9 +80,9 @@
         <div class="collapse navbar-collapse" id="navbarContent">
             <!-- Left nav -->
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item"><a class="nav-link" href="<spring:url value='/products'/>">Shop</a></li>
-                <li class="nav-item"><a class="nav-link" href="<spring:url value='/company'/>">Company</a></li>
-                <li class="nav-item"><a class="nav-link" href="<spring:url value='/cart'/>">My Cart</a></li>
+                <li class="nav-item"><a class="nav-link" href="<spring:url value='/categories'/>"><spring:message code="template.shop" /></a></li>
+                <li class="nav-item"><a class="nav-link" href="<spring:url value='/company'/>"><spring:message code="template.company" /></a></li>
+                <li class="nav-item"><a class="nav-link" href="<spring:url value='/cart'/>"><spring:message code="template.cart" /></a></li>
             </ul>
 
             <!-- Right nav -->
@@ -97,15 +93,15 @@
                             Welcome ${pageContext.request.userPrincipal.principal.username} !
                         </span>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="<spring:url value='/logout'/>">Log out</a></li>
-                    <li class="nav-item"><a class="nav-link" href="<spring:url value='/myPage'/>">My Page</a></li>
-                    <li class="nav-item"><a class="nav-link" href="<spring:url value='/editAccount'/>">Edit Account</a></li>
-                    <li class="nav-item"><a class="nav-link" href="<spring:url value='/myOrders'/>">My Orders</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<spring:url value='/logout'/>"><spring:message code="template.logout"/></a></li>
+                    <li class="nav-item"><a class="nav-link" href="<spring:url value='/myPage'/>"><spring:message code="template.myPage" /></a></li>
+                    <li class="nav-item"><a class="nav-link" href="<spring:url value='/editAccount'/>"><spring:message code="template.editAccount" /></a></li>
+                    <li class="nav-item"><a class="nav-link" href="<spring:url value='/myOrders'/>"><spring:message code="template.myOrders" /></a></li>
                 </sec:authorize>
 
                 <sec:authorize access="!isAuthenticated()">
-                    <li class="nav-item"><a class="nav-link" href="<spring:url value='/login'/>">Log in</a></li>
-                    <li class="nav-item"><a class="nav-link" href="<spring:url value='/signUp'/>">Sign up</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<spring:url value='/login'/>"><spring:message code="template.login" /></a></li>
+                    <li class="nav-item"><a class="nav-link" href="<spring:url value='/signUp'/>"><spring:message code="template.signUp" /></a></li>
                 </sec:authorize>
 
                 <li class="nav-item">
@@ -124,13 +120,13 @@
 </nav>
 
 <!-- MAIN -->
-<main class="container my-5">
+<main class="container my-5 flex-fill">
     <tiles:insertAttribute name="main-content"/>
 </main>
 
 <!-- FOOTER -->
 <footer class="bg-dark text-white text-center py-3 mt-auto">
-    <p class="mb-0">© 2025 MyShop. All rights reserved.</p>
+    <p class="mb-0"><spring:message code="template.text" /></p>
 </footer>
 
 <!-- Bootstrap JS -->

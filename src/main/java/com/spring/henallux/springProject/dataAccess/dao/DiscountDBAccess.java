@@ -7,6 +7,7 @@ import com.spring.henallux.springProject.model.Discount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,5 +37,21 @@ public class DiscountDBAccess implements DiscountDataAccess {
             discountsModel.add(providerConverter.discountEntityToDiscountModel(discount));
 
         return discountsModel;
+    }
+
+    public ArrayList<Discount> getAllCurrent(){
+        List<DiscountEntity> discounts = discountRepository.findDiscountEntitiesByBeginDateLessThanEqualAndEndDateGreaterThanEqual(LocalDateTime.now(), LocalDateTime.now());
+
+        ArrayList<Discount> discountsModel = new ArrayList<>();
+
+        for (DiscountEntity discount : discounts)
+            discountsModel.add(providerConverter.discountEntityToDiscountModel(discount));
+
+        return discountsModel;
+    }
+
+    public Discount getCurrentAndByCategoryId(Integer id){
+        DiscountEntity discount = discountRepository.findDiscountEntityByBeginDateLessThanEqualAndEndDateGreaterThanEqualAndCategory_Id(LocalDateTime.now(), LocalDateTime.now(), id);
+        return discount != null ? providerConverter.discountEntityToDiscountModel(discount) : null;
     }
 }
