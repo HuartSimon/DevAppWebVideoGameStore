@@ -44,85 +44,83 @@ VALUES
 -- Insertion dans la table `translation` avec des traductions pour les catégories
 INSERT INTO translation (name, description, category, language)
 VALUES
-    -- French Translations
-    ('Consoles Gaming', 'Les meilleures consoles de jeu pour les gamers', 1, 'fr'),
-    ('PC Gaming', 'Composants et configurations pour PC gaming', 2, 'fr'),
-    ('Consoles Portables', 'Consoles portable pour tous les moments', 3, 'fr'),
-    ('Accessoires Gaming', 'Accessoires essentiels pour un jeu de qualité', 4, 'fr'),
-    ('Moniteurs Gaming', 'Moniteurs gaming pour des performances exceptionnelles', 5, 'fr'),
-    ('Stockage Gaming', 'Solutions de stockage rapide pour vos jeux', 6, 'fr'),
-    ('Composants PC', 'Composants PC performants pour un gaming fluide', 7, 'fr'),
-    ('Cartes Graphiques', 'Cartes graphiques puissantes pour des visuels réalistes', 8, 'fr'),
-    ('Processeurs', 'Processeurs haute performance pour les gamers', 9, 'fr'),
-    ('Accessoires Divers', 'Accessoires divers pour le gaming', 10, 'fr'),
+    -- French Translations (Genres de jeux vidéo)
+    ('Action', 'Jeux rapides mettant l\'accent sur la coordination et les réflexes', 1, 'fr'),
+    ('Aventure', 'Explorez des mondes et vivez des histoires captivantes', 2, 'fr'),
+    ('Jeux de Rôle', 'Incarnez des personnages et vivez des quêtes épiques', 3, 'fr'),
+    ('Stratégie', 'Jeux de réflexion tactique en temps réel ou au tour par tour', 4, 'fr'),
+    ('Simulation', 'Simulez la réalité dans des environnements immersifs', 5, 'fr'),
+    ('Jeux de Sport', 'Retrouvez vos sports préférés en version vidéoludique', 6, 'fr'),
+    ('Course', 'Jeux de vitesse et de conduite automobile', 7, 'fr'),
+    ('Puzzle', 'Défiez votre logique avec des casse-têtes stimulants', 8, 'fr'),
+    ('Horreur', 'Jeux effrayants pour amateurs de sensations fortes', 9, 'fr'),
+    ('Multijoueur en ligne', 'Affrontez ou coopérez avec des joueurs du monde entier', 10, 'fr'),
 
-    -- English Translations
-    ('Gaming Consoles', 'Best gaming consoles for gamers', 1, 'en'),
-    ('PC Gaming', 'PC gaming components and setups', 2, 'en'),
-    ('Portable Gaming', 'Portable gaming consoles for gaming on the go', 3, 'en'),
-    ('Gaming Accessories', 'Essential accessories for quality gaming', 4, 'en'),
-    ('Gaming Monitors', 'Gaming monitors for superior performance', 5, 'en'),
-    ('Gaming Storage', 'Fast storage solutions for your games', 6, 'en'),
-    ('PC Components', 'High-performance PC components for smooth gaming', 7, 'en'),
-    ('Graphics Cards', 'Powerful graphics cards for realistic visuals', 8, 'en'),
-    ('Processors', 'High-performance processors for gamers', 9, 'en'),
-    ('Miscellaneous Gear', 'Various gaming accessories', 10, 'en');
-
+    -- English Translations (Video Game Genres)
+    ('Action', 'Fast-paced games focused on reflexes and coordination', 1, 'en'),
+    ('Adventure', 'Explore worlds and experience immersive stories', 2, 'en'),
+    ('Role-Playing Games', 'Take on characters and go on epic quests', 3, 'en'),
+    ('Strategy', 'Tactical thinking games, real-time or turn-based', 4, 'en'),
+    ('Simulation', 'Realistic environments and life-like experiences', 5, 'en'),
+    ('Sports Games', 'Play your favorite sports virtually', 6, 'en'),
+    ('Racing', 'High-speed driving and racing games', 7, 'en'),
+    ('Puzzle', 'Logic-based games and brain teasers', 8, 'en'),
+    ('Horror', 'Scary games for thrill-seekers', 9, 'en'),
+    ('Online Multiplayer', 'Compete or cooperate with players worldwide', 10, 'en');
 
 
 -- Insertion dans la table `product` avec les noms des produits correspondants aux catégories
 INSERT INTO product (name, description, price, category)
 VALUES
-    -- Category 1: Gaming Consoles
-    ('PlayStation 5', 'Next-generation gaming console with advanced performance', 549.99, 1),
-    ('Xbox Series X', 'Ultra-powerful gaming console with backward compatibility', 499.99, 1),
-    ('Nintendo Switch OLED', 'Hybrid console with OLED display for vibrant colors', 349.99, 1),
+    -- Category 1: Action
+    ('God of War: Ragnarok', 'Mythological action-adventure with epic combat', 69.99, 1),
+    ('Marvel\'s Spider-Man 2', 'Web-slinging open-world action in New York City', 69.99, 1),
+    ('Bayonetta 3', 'Stylish hack-and-slash action with witch powers', 59.99, 1),
 
-    -- Category 2: PC Gaming
-    ('Predator Gaming PC', 'High-performance gaming PC with Intel i9 and RTX 3080', 1899.99, 2),
-    ('Legion Gaming PC', 'Optimized performance gaming PC by Lenovo', 1599.99, 2),
-    ('MSI Gaming PC', 'Compact and powerful PC for demanding gamers', 1299.99, 2),
+    -- Category 2: Adventure
+    ('The Legend of Zelda: Tears of the Kingdom', 'Epic open-world adventure with creative exploration', 69.99, 2),
+    ('Uncharted: Legacy of Thieves Collection', 'Cinematic treasure-hunting adventure', 49.99, 2),
+    ('Life is Strange: True Colors', 'Emotional narrative-driven adventure', 39.99, 2),
 
-    -- Category 3: Portable Consoles
-    ('Steam Deck', 'Powerful handheld console for playing your Steam games', 419.99, 3),
-    ('Nintendo Switch Lite', 'Compact and portable version of the Nintendo Switch', 199.99, 3),
-    ('Anbernic RG351P', 'Retro handheld console with built-in emulators', 119.99, 3),
+    -- Category 3: Role-Playing Games
+    ('Elden Ring', 'Dark fantasy RPG with vast open world and tough combat', 69.99, 3),
+    ('Final Fantasy XVI', 'Story-rich RPG with real-time combat', 69.99, 3),
+    ('Persona 5 Royal', 'Stylish turn-based RPG set in modern Tokyo', 59.99, 3),
 
-    -- Category 4: Gaming Accessories
-    ('Razer Gaming Headset', 'Gaming headset with surround sound and removable mic', 79.99, 4),
-    ('Logitech Gaming Mouse', 'Precision mouse with adjustable DPI', 49.99, 4),
-    ('RGB Gaming Keyboard', 'Mechanical keyboard with customizable backlighting', 99.99, 4),
+    -- Category 4: Strategy
+    ('Age of Empires IV', 'Historical real-time strategy with multiple civilizations', 59.99, 4),
+    ('XCOM 2', 'Turn-based tactical strategy game with aliens', 29.99, 4),
+    ('Fire Emblem: Engage', 'Tactical RPG with permadeath and epic battles', 59.99, 4),
 
-    -- Category 5: Gaming Monitors
-    ('Asus TUF Monitor', '27" monitor with 165Hz refresh rate', 329.99, 5),
-    ('MSI Optix Monitor', 'Curved screen for total immersion', 299.99, 5),
-    ('Dell UltraSharp Monitor', '4K UHD display with accurate colors', 499.99, 5),
+    -- Category 5: Simulation
+    ('The Sims 4', 'Life simulation game with endless customization', 39.99, 5),
+    ('Microsoft Flight Simulator', 'Realistic flight simulation with stunning visuals', 59.99, 5),
+    ('Farming Simulator 22', 'Farm-building and management simulation', 49.99, 5),
 
-    -- Category 6: Gaming Storage
-    ('1TB NVMe SSD', 'Ultra-fast SSD for instant loading times', 149.99, 6),
-    ('4TB External Hard Drive', 'Portable storage solution for your games', 119.99, 6),
-    ('256GB Memory Card', 'MicroSD card for additional storage', 49.99, 6),
+    -- Category 6: Sports
+    ('FIFA 24', 'Realistic football simulation with global teams', 69.99, 6),
+    ('NBA 2K24', 'Basketball simulation with lifelike gameplay', 69.99, 6),
+    ('Tony Hawk\'s Pro Skater 1+2', 'Remake of classic skateboarding games', 39.99, 6),
 
-    -- Category 7: PC Components
-    ('ASUS ROG Motherboard', 'High-performance motherboard for gaming', 299.99, 7),
-    ('Corsair Vengeance 16GB RAM', 'Fast RAM for gaming', 89.99, 7),
-    ('EVGA 750W Power Supply', 'Stable and quiet power supply', 109.99, 7),
+    -- Category 7: Racing
+    ('Gran Turismo 7', 'Realistic racing sim with licensed cars and tracks', 69.99, 7),
+    ('Forza Horizon 5', 'Open-world arcade racer in a vibrant environment', 69.99, 7),
+    ('Mario Kart 8 Deluxe', 'Fun, chaotic kart racing with Nintendo characters', 59.99, 7),
 
-    -- Category 8: Graphics Cards
-    ('NVIDIA GeForce RTX 4080', 'High-end graphics card for gaming and creation', 1199.99, 8),
-    ('AMD Radeon RX 7900 XT', 'Performance and efficiency for gaming', 899.99, 8),
-    ('NVIDIA GeForce RTX 3060', 'Mid-range graphics card for smooth gaming', 399.99, 8),
+    -- Category 8: Puzzle
+    ('Tetris Effect: Connected', 'Classic puzzle game with hypnotic visuals', 39.99, 8),
+    ('Portal 2', 'First-person puzzle game with dark humor', 19.99, 8),
+    ('The Witness', 'Beautiful open-world filled with logic puzzles', 29.99, 8),
 
-    -- Category 9: Processors
-    ('Intel Core i7 13700K', 'Powerful processor for multitasking and gaming', 419.99, 9),
-    ('AMD Ryzen 5 7600X', 'Balanced processor for performance and price', 299.99, 9),
-    ('Intel Core i5 12400F', 'Affordable processor with great value', 189.99, 9),
+    -- Category 9: Horror
+    ('Resident Evil 4 Remake', 'Survival horror reimagined with modern visuals', 69.99, 9),
+    ('Dead Space Remake', 'Sci-fi horror with atmospheric tension and gore', 69.99, 9),
+    ('Phasmophobia', 'Co-op ghost hunting horror game', 13.99, 9),
 
-    -- Category 10: Miscellaneous Accessories
-    ('Xbox Elite Controller', 'Premium controller with customizable buttons', 179.99, 10),
-    ('RGB Headset Stand', 'Practical accessory with integrated lighting', 29.99, 10),
-    ('PS5 Controller Charger', 'Charging station for two PS5 controllers', 39.99, 10);
-
+    -- Category 10: Online Multiplayer
+    ('Call of Duty: Modern Warfare III', 'Fast-paced FPS with online multiplayer modes', 69.99, 10),
+    ('Fortnite', 'Battle royale with building mechanics and seasonal events', 9.99, 10),
+    ('Apex Legends', 'Hero-based battle royale shooter', 4.99, 10);
 
 
 -- Insertion dans la table `discount`
@@ -156,19 +154,19 @@ VALUES
 -- Insertion dans la table `order_line`
 INSERT INTO order_line (quantity, price, discount, `order`, product)
 VALUES
-    (1, 499.99, 0.1, 1, 1),
-    (2, 799.99, 0.1, 2, 2),
-    (1, 69.99, 0.15, 3, 4),
-    (3, 299.99, 0.15, 4, 5),
-    (1, 119.99, 0.15, 5, 6),
-    (2, 499.99, 0.5, 6, 7),
-    (1, 699.99, 0.5, 7, 8),
-    (1, 359.99, 0.5, 8, 9),
-    (1, 49.99, 0.2, 9, 10),
-    (1, 999.99, 0.2, 10, 11),
-    (1, 129.99, 0.2, 1, 12),
-    (2, 79.99, 0.3, 2, 13),
-    (1, 399.99, 0.3, 3, 14),
-    (1, 149.99, 0.3, 4, 15),
-    (1, 499.99, 0.1, 5, 1),
-    (1, 699.99, 0.5, 6, 8);
+    (1, 69.99, 0.10, 1, 1),   -- God of War: Ragnarok
+    (2, 69.99, 0.10, 2, 2),   -- Marvel's Spider-Man 2
+    (1, 69.99, 0.15, 3, 4),   -- Zelda: Tears of the Kingdom
+    (3, 39.99, 0.15, 4, 6),   -- Life is Strange: True Colors
+    (1, 59.99, 0.15, 5, 9),   -- Persona 5 Royal
+    (2, 59.99, 0.50, 6, 10),  -- Age of Empires IV
+    (1, 29.99, 0.50, 7, 11),  -- XCOM 2
+    (1, 59.99, 0.50, 8, 12),  -- Fire Emblem: Engage
+    (1, 49.99, 0.20, 9, 13),  -- The Sims 4
+    (1, 59.99, 0.20, 10, 15), -- Farming Simulator 22
+    (1, 69.99, 0.20, 1, 17),  -- NBA 2K24
+    (2, 39.99, 0.30, 2, 18),  -- Tony Hawk's Pro Skater 1+2
+    (1, 69.99, 0.30, 3, 19),  -- Gran Turismo 7
+    (1, 59.99, 0.30, 4, 21),  -- Mario Kart 8 Deluxe
+    (1, 19.99, 0.10, 5, 23),  -- Portal 2
+    (1, 69.99, 0.50, 6, 24);  -- Resident Evil 4 Remake

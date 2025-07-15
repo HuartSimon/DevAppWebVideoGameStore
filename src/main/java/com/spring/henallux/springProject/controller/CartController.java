@@ -2,6 +2,7 @@ package com.spring.henallux.springProject.controller;
 
 import com.spring.henallux.springProject.model.*;
 import com.spring.henallux.springProject.service.CartService;
+import com.spring.henallux.springProject.service.DiscountService;
 import com.spring.henallux.springProject.service.OrderLineService;
 import com.spring.henallux.springProject.service.OrderService;
 import org.aspectj.weaver.ast.Or;
@@ -17,10 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @Controller
@@ -34,6 +32,9 @@ public class CartController {
     @Autowired
     private OrderLineService orderLineService;
 
+    @Autowired
+    private DiscountService discountService;
+
     @ModelAttribute(Constants.CURRENT_CART)
     public Cart cart() { return new Cart(); }
 
@@ -46,7 +47,18 @@ public class CartController {
     @RequestMapping(method = RequestMethod.GET)
     public String cartGet(Model model, @ModelAttribute(value = Constants.CURRENT_CART) Cart cart) {
         HashMap<Integer, OrderLine> orderLines = cart.getOrderLines();
-        model.addAttribute("orderLines", orderLines.values());
+
+        List<Map<String, Object>> finalOrderLines = new ArrayList<>();
+
+        for(var orderLine : orderLines.entrySet()){
+            Map<String, Object> finalOrderLine = new HashMap<>();
+            finalOrderLine.put("orderLine", orderLine.getValue());
+            finalOrderLine.put("discount", discountService.getCurrentAndByCategoryId(orderLine.getValue().getProduct().getCategory().getId()));
+            finalOrderLines.add(finalOrderLine);
+        }
+
+        model.addAttribute("finalOrderLines", finalOrderLines);
+
         return "integrated:cart";
     }
 
@@ -144,3 +156,4 @@ public class CartController {
     }
 
 }
+

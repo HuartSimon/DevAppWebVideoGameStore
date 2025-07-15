@@ -11,9 +11,9 @@
             <c:set var="payedLabel"> <spring:message code="myOrders.status.payed" /> </c:set>
             <c:set var="notPayedLabel"> <spring:message code="myOrders.status.notPayed" /> </c:set>
 
-            <spring:message code="myOrders.status" /> ${ordersWithPrice.order.isPayed ? payedLabel : notPayedLabel}<br>
-            <spring:message code="myOrders.price" /> ${ordersWithPrice.orderPrice}$<br>
-            <a href="<spring:url value="/orderDetails/${ordersWithPrice.order.id}"/>"><spring:message code="myOrders.detailsLink" /></a>
+            <spring:message code="myOrders.status" /> ${ordersWithPrice.order.isPayed ? payedLabel : notPayedLabel} <br>
+            <spring:message code="myOrders.price" /> ${ordersWithPrice.orderPrice}$ <br>
+            <a href="<spring:url value="/orderDetails/${ordersWithPrice.order.id}"/>"> <spring:message code="myOrders.detailsLink" /> </a>
         </li><br>
     </c:forEach>
 </ul>

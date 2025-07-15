@@ -93,27 +93,45 @@
 <div class="container mt-5 mb-5">
     <h1 class="text-center"><spring:message code="cart.title" /></h1>
 
-    <c:if test="${empty orderLines}">
+    <c:if test="${empty finalOrderLines}">
         <div class="alert alert-info text-center mt-4">
             <spring:message code="cart.empty" />
         </div>
     </c:if>
 
-    <c:if test="${not empty orderLines}">
+    <c:if test="${not empty finalOrderLines}">
         <p class="mt-4"><strong><spring:message code="cart.orderLines" /></strong></p>
         <ul class="list-group mb-4">
             <c:set var="totalOrder" value="0" />
-            <c:forEach items="${orderLines}" var="orderLine">
+            <c:forEach items="${finalOrderLines}" var="finalOrderLine">
+                <c:set value="${finalOrderLine.orderLine}" var="orderLine" />
+                <c:set value="${finalOrderLine.discount}" var="discount" />
+
                 <li id="orderLine-${orderLine.id}" class="list-group-item d-flex justify-content-between align-items-start">
                     <div class="ms-2 me-auto">
                         <div class="fw-bold">
                             ${orderLine.quantity}× ${orderLine.product.name}
                         </div>
                         <div>
-                            <spring:message code="cart.unitPrice" /> : ${orderLine.price}$ <br />
-                            <spring:message code="cart.discount" /> : ${orderLine.discount * 100}%<br />
+                            <spring:message code="cart.unitPrice" /> :
+                            <c:choose>
+                                <c:when test="${discount != null}">
+                                    <span class="text-decoration-line-through text-muted"> ${orderLine.price}$ </span>
+                                    <span class="text-danger ms-2">
+                                        <fmt:formatNumber value="${orderLine.price - (discount.discountVal * orderLine.price)}" type="number" minFractionDigits="2" maxFractionDigits="2" />$
+                                    </span>
+                                    <span class="text-danger ms-2">
+                                        (${discount.discountVal * 100}%)
+                                    </span>
+                                </c:when>
+                                <c:otherwise>
+                                    ${orderLine.price}$
+                                </c:otherwise>
+                            </c:choose>
+                            <br />
+
                             <spring:message code="cart.lineTotal" /> :
-                            ${(orderLine.quantity * orderLine.price) * (1 - orderLine.discount)}$
+                            <fmt:formatNumber value="${(orderLine.quantity * orderLine.price) * (1 - discount.discountVal)}" type="number" minFractionDigits="2" maxFractionDigits="2" />$
                         </div>
                     </div>
                     <div class="btn-group btn-group-sm align-self-center" role="group">
@@ -124,7 +142,7 @@
                         </button>
                     </div>
                 </li>
-                <c:set var="totalLine" value="${(orderLine.quantity * orderLine.price) * (1 - orderLine.discount)}" />
+                <c:set var="totalLine" value="${(orderLine.quantity * orderLine.price) * (1 - discount.discountVal)}" />
                 <c:set var="totalOrder" value="${totalOrder + totalLine}" />
             </c:forEach>
         </ul>
@@ -140,9 +158,6 @@
         </form:form>
     </c:if>
 </div>
-
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 
 <!-- JS pour actions panier -->
 <script>
