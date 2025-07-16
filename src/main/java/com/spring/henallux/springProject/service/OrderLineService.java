@@ -13,9 +13,7 @@ public class OrderLineService {
     @Autowired
     private OrderLineDataAccess orderLineDAO;
 
-    public OrderLine saveOrderLine(OrderLine orderLine) {
-        return orderLineDAO.saveOrderLine(orderLine);
-    }
+    public OrderLine saveOrderLine(OrderLine orderLine) { return orderLineDAO.saveOrderLine(orderLine); }
 
     public void deleteOrderLine(Integer orderLineId) {
         orderLineDAO.deleteOrderLineById(orderLineId);

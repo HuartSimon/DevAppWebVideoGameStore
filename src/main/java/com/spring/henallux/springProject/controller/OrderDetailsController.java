@@ -30,6 +30,7 @@ public class OrderDetailsController {
         double orderPrice = 0;
 
         for (OrderLine orderLine : orderLines) {
+            System.out.println(orderLine);
             double orderLinePrice = orderLine.getPrice()*orderLine.getQuantity()*(1-(orderLine.getDiscount() == null ? 0 : orderLine.getDiscount()));
             orderPrice += orderLinePrice;
         }

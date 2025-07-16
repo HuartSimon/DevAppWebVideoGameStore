@@ -82,7 +82,7 @@ public class ProviderConverter {
         OrderLineEntity orderLineEntity = new OrderLineEntity();
         orderLineEntity.setOrder(orderModelToOrderEntity(orderLine.getOrder()));
         orderLineEntity.setId(orderLine.getId());
-        orderLineEntity.setDiscount(orderLineEntity.getDiscount());
+        orderLineEntity.setDiscount(orderLine.getDiscount());
         orderLineEntity.setProduct(productModelToProductEntity(orderLine.getProduct()));
         orderLineEntity.setPrice(orderLine.getPrice());
         orderLineEntity.setQuantity(orderLine.getQuantity());

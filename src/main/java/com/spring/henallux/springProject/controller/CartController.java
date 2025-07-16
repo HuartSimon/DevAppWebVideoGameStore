@@ -47,17 +47,7 @@ public class CartController {
     @RequestMapping(method = RequestMethod.GET)
     public String cartGet(Model model, @ModelAttribute(value = Constants.CURRENT_CART) Cart cart) {
         HashMap<Integer, OrderLine> orderLines = cart.getOrderLines();
-
-        List<Map<String, Object>> finalOrderLines = new ArrayList<>();
-
-        for(var orderLine : orderLines.entrySet()){
-            Map<String, Object> finalOrderLine = new HashMap<>();
-            finalOrderLine.put("orderLine", orderLine.getValue());
-            finalOrderLine.put("discount", discountService.getCurrentAndByCategoryId(orderLine.getValue().getProduct().getCategory().getId()));
-            finalOrderLines.add(finalOrderLine);
-        }
-
-        model.addAttribute("finalOrderLines", finalOrderLines);
+        model.addAttribute("orderLines", orderLines.values());
 
         return "integrated:cart";
     }

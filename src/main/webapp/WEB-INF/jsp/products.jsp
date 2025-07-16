@@ -60,10 +60,10 @@
                     <div class="card-body">
                         <h5 class="card-title">${product.name}</h5>
                         <p class="card-text">
-                            <spring:message code="products.price.label" />
+                            <spring:message code="products.price.label" />:
                             <c:choose>
                                 <c:when test="${discount != null}">
-                                    <span class="text-decoration-line-through text-muted"> ${product.price}$ </span>
+                                    <span class="text-decoration-line-through text-muted"> ${product.price} </span>$
                                     <span class="text-danger ms-2">
                                         <fmt:formatNumber value="${product.price - (discount.discountVal * product.price)}" type="number" minFractionDigits="2" maxFractionDigits="2" />$
                                     </span>

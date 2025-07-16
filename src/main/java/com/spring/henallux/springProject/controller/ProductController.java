@@ -77,12 +77,8 @@ public class ProductController {
         orderLine.setProduct(product);
         orderLine.setPrice(product.getPrice());
 
-        // FAIRE SYSTEME DE DISCOUNT
-        // CHERCHER LA DISCOUNT : EN FONCTION DE LA CATEGORIE DU PRODUIT, SI LA DATE DE L'ORDER EST COMPRISE
-        // ENTRE LA DATE DE DEBUT ET DE FIN DE LA DISCOUNT L'APPLIQUER
-        // ? SI Y A PLUSIEURS POSSIBILITE QUEL DISCOUNT CHOISIR ?
-        orderLine.setDiscount(0.20); // A CHANGER
-
+        var discount = discountService.getCurrentAndByCategoryId(product.getCategory().getId());
+        orderLine.setDiscount(discount != null ? discount.getDiscountVal() : null);
         orderLine.setId(cart.getOrderLines().size()+1);
         cart.addOrderLine(orderLine.getId(), orderLine);
         return "redirect:/cart";
