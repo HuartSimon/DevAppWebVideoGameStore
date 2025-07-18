@@ -7,16 +7,14 @@ public class Discount {
     private Double discountVal;
     private LocalDateTime beginDate;
     private LocalDateTime endDate;
-    private Category category;
 
 
     public Discount() {}
-    public Discount(Integer id, Double discountVal, LocalDateTime beginDate, LocalDateTime endDate, Category category) {
+    public Discount(Integer id, Double discountVal, LocalDateTime beginDate, LocalDateTime endDate) {
         setId(id);
         setDiscountVal(discountVal);
         setBeginDate(beginDate);
         setEndDate(endDate);
-        setCategory(category);
     }
 
 
@@ -28,9 +26,6 @@ public class Discount {
     }
     public LocalDateTime getEndDate() {
         return endDate;
-    }
-    public Category getCategory() {
-        return category;
     }
     public LocalDateTime getBeginDate() {
         return beginDate;
@@ -49,9 +44,6 @@ public class Discount {
     public void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
     }
-    public void setCategory(Category category) {
-        this.category = category;
-    }
 
     @Override
     public String toString() {
@@ -60,7 +52,6 @@ public class Discount {
                 ", discountVal=" + discountVal +
                 ", beginDate=" + beginDate +
                 ", endDate=" + endDate +
-                ", category=" + category +
                 '}';
     }
 }

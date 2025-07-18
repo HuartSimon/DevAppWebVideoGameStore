@@ -1,11 +1,7 @@
 package com.spring.henallux.springProject.dataAccess.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.*;
+import java.util.*;
 
 @Entity
 @Table(name="category")
@@ -16,12 +12,18 @@ public class CategoryEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @OneToMany(mappedBy = "category")
+    private List<DiscountEntity> discounts;
+
     public CategoryEntity(){}
-    public CategoryEntity(Integer id) {
-        setId(id);
-    }
 
     public Integer getId() { return id; }
+    public List<DiscountEntity> getDiscounts() {
+        return discounts;
+    }
 
     public void setId(Integer id) { this.id = id; }
+    public void setDiscounts(List<DiscountEntity> discounts) {
+        this.discounts = discounts;
+    }
 }

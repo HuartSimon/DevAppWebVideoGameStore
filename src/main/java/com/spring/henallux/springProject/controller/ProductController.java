@@ -5,15 +5,10 @@ import com.spring.henallux.springProject.model.*;
 import com.spring.henallux.springProject.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
 
 @Controller
@@ -22,13 +17,9 @@ import java.util.*;
 public class ProductController {
     @Autowired
     ProductService productService;
-    @Autowired
-    OrderLineService orderLineService;
-    @Autowired
-    TranslationService translationService;
 
     @Autowired
-    private DiscountService discountService;
+    TranslationService translationService;
 
     @ModelAttribute(Constants.CURRENT_ORDER_LINE)
     public OrderLine orderLine() { return new OrderLine(); }
@@ -46,17 +37,11 @@ public class ProductController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String productGet(@PathVariable("id") int id, Model model, Locale locale) {
         Product product = productService.getProductById(id);
-
         Translation translatedCategory = translationService.getTranslationByCategoryAndLanguage(product.getCategory(), new Language(locale.getLanguage()));
 
-        Discount discount = discountService.getCurrentAndByCategoryId(product.getCategory().getId());
+        model.addAttribute("product", product);
+        model.addAttribute("translatedCategory", translatedCategory);
 
-        Map<String, Object> item = new HashMap<>();
-        item.put("product", product);
-        item.put("translatedCategory", translatedCategory);
-        item.put("discount", discount);
-
-        model.addAttribute("item", item);
         return "integrated:product";
     }
 
@@ -77,8 +62,8 @@ public class ProductController {
         orderLine.setProduct(product);
         orderLine.setPrice(product.getPrice());
 
-        var discount = discountService.getCurrentAndByCategoryId(product.getCategory().getId());
-        orderLine.setDiscount(discount != null ? discount.getDiscountVal() : null);
+        var discount = product.getCategory().getCurrentDiscountValue();
+        orderLine.setDiscount(discount == null ? null : discount);
         orderLine.setId(cart.getOrderLines().size()+1);
         cart.addOrderLine(orderLine.getId(), orderLine);
         return "redirect:/cart";

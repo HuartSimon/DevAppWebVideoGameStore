@@ -1,22 +1,16 @@
 package com.spring.henallux.springProject.controller;
 
 import com.spring.henallux.springProject.model.*;
-import com.spring.henallux.springProject.service.CartService;
-import com.spring.henallux.springProject.service.DiscountService;
 import com.spring.henallux.springProject.service.OrderLineService;
 import com.spring.henallux.springProject.service.OrderService;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import com.spring.henallux.springProject.Constants;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -26,14 +20,10 @@ import java.util.*;
 @SessionAttributes({Constants.CURRENT_CART, Constants.CURRENT_USER, Constants.CURRENT_ORDER})
 public class CartController {
     @Autowired
-    private CartService cartService;
-    @Autowired
     private OrderService orderService;
-    @Autowired
-    private OrderLineService orderLineService;
 
     @Autowired
-    private DiscountService discountService;
+    private OrderLineService orderLineService;
 
     @ModelAttribute(Constants.CURRENT_CART)
     public Cart cart() { return new Cart(); }
@@ -60,7 +50,7 @@ public class CartController {
                         @ModelAttribute(value = Constants.CURRENT_ORDER) Order order)
     {
         if (user instanceof VisitorUser) {
-            redirectAttributes.addFlashAttribute("notAuthenticatedError", "You must be logged in to place an order ! Please log in or sign up." );
+            redirectAttributes.addFlashAttribute("notAuthenticatedError", "You must be logged in to place an order ! Please log in or sign up." ); //faire la trad
             return "redirect:/cart"; // Redirect instead of integrated/forward to have the model.attribute : orderLines made in the GET
             // If I make integrated, all my orderLines will be lost
         } else { // If the user is not a visitor -> save order in the DB

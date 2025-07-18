@@ -8,11 +8,14 @@ import javax.persistence.GenerationType;
 @Entity
 @Table(name="discount")
 public class DiscountEntity {
-
     @Id
     @Column(name="id")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
+
+    @JoinColumn(name = "category")
+    @ManyToOne()
+    private CategoryEntity category;
 
     @Column(name="discount_val")
     private Double discountVal;
@@ -23,18 +26,13 @@ public class DiscountEntity {
     @Column(name="end_date")
     private LocalDateTime endDate;
 
-    @JoinColumn(name = "category", referencedColumnName = "id")
-    @ManyToOne
-    private CategoryEntity category;
-
 
     public DiscountEntity() {}
-    public DiscountEntity(Integer id, Double discountVal, LocalDateTime beginDate, LocalDateTime endDate, CategoryEntity category) {
+    public DiscountEntity(Integer id, Double discountVal, LocalDateTime beginDate, LocalDateTime endDate) {
         setId(id);
         setDiscountVal(discountVal);
         setBeginDate(beginDate);
         setEndDate(endDate);
-        setCategory(category);
     }
 
 
@@ -47,13 +45,13 @@ public class DiscountEntity {
     public LocalDateTime getEndDate() {
         return endDate;
     }
-    public CategoryEntity getCategory() {
-        return category;
-    }
     public LocalDateTime getBeginDate() {
         return beginDate;
     }
 
+    public CategoryEntity getCategory() {
+        return category;
+    }
 
     public void setId(Integer id) {
         this.id = id;
@@ -67,8 +65,8 @@ public class DiscountEntity {
     public void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
     }
-    public void setCategory(CategoryEntity category) {
-        this.category = category;
-    }
 
+    public void setCategory(CategoryEntity categoryEntity) {
+        this.category = categoryEntity;
+    }
 }

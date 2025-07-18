@@ -27,7 +27,7 @@ public class CategoryDBAccess implements CategoryDataAccess {
     public ArrayList<Category> findAll() {
         return new ArrayList<>(categoryRepository.findAll()
                 .stream()
-                .map(categorie -> providerConverter.categoryEntityToCategoryModel(categorie))
+                .map(category -> providerConverter.categoryEntityToCategoryModel(category))
                 .toList());
     }
 }

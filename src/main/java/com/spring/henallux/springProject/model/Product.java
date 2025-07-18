@@ -51,6 +51,16 @@ public class Product {
         return price;
     }
 
+    public Double getFinalPrice(){
+        var currentDiscountValue = getCategory().getCurrentDiscountValue();
+
+        if(currentDiscountValue == null){
+            return getPrice();
+        }else {
+            return getPrice() - (getPrice() *  getCategory().getCurrentDiscountValue());
+        }
+    }
+
     @Override
     public String toString() {
         return "Product{" +

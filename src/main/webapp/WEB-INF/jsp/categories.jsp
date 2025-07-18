@@ -8,9 +8,8 @@
 
     <!-- Responsive Category Cards -->
     <div class="row g-4">
-        <c:forEach items="${finalCategories}" var="finalCategory">
-            <c:set var="translatedCategory" value='${finalCategory.get("translatedCategory")}' />
-            <c:set var="discount" value='${finalCategory.get("discount")}' />
+        <c:forEach items="${translatedCategories}" var="translatedCategory">
+            <c:set var="discount" value="${translatedCategory.getCategory().getCurrentDiscountValue()}" />
 
             <div class="col-12 col-md-6 col-lg-4">
                 <div class="card h-100 shadow-sm">
@@ -18,8 +17,8 @@
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title">${translatedCategory.getName()}</h5>
                             <p class="card-text">${translatedCategory.getDescription()}</p>
-                            <c:if test="${discount.isPresent()}">
-                                <p class="text-danger">${discount.get().getDiscountVal() * 100}%</p>
+                            <c:if test="${discount != null}">
+                                <p class="text-danger">${discount * 100}%</p>
                             </c:if>
                         </div>
                     </a>

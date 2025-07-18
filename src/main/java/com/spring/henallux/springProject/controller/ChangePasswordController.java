@@ -44,7 +44,7 @@ public class ChangePasswordController {
 
         user.setPassword(newPassword);
 
-        user.setPassword(encoder.encode(user.getPassword()));
+        user.setPassword(encoder.encode(user.getPassword())); //Pq pas mettre direct newPassword ?
 
         userService.saveUser(user);
 

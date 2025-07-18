@@ -4,19 +4,12 @@ import com.spring.henallux.springProject.dataAccess.entity.*;
 import com.spring.henallux.springProject.dataAccess.entity.LanguageEntity;
 import com.spring.henallux.springProject.model.*;
 import org.dozer.DozerBeanMapper;
-import org.dozer.Mapper;
-import org.dozer.loader.api.BeanMappingBuilder;
-import org.dozer.loader.api.TypeMappingOptions;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
-
-import java.time.LocalDateTime;
-import java.util.Collections;
 
 @Component
 public class ProviderConverter {
 
-    //private CustomDozerMapper mapper = new CustomDozerMapper(); // doesn't work
     private DozerBeanMapper mapper = new DozerBeanMapper();
 
     public UserEntity userModelToUserEntity(User user) {
@@ -56,11 +49,25 @@ public class ProviderConverter {
     }
 
     public Translation translationEntityToTranslationModel(TranslationEntity translationEntity) {
-        return mapper.map(translationEntity, Translation.class);
+        Translation translation = new Translation();
+        translation.setId(translationEntity.getId());
+        translation.setCategory(categoryEntityToCategoryModel(translationEntity.getCategory()));
+        translation.setDescription(translationEntity.getDescription());
+        translation.setName(translationEntity.getName());
+        translation.setLanguage(languageEntityToLanguageModel(translationEntity.getLanguage()));
+
+        return translation;
     }
 
     public TranslationEntity translationModelToTranslationEntity(Translation translation) {
-        return mapper.map(translation, TranslationEntity.class);
+        TranslationEntity translationEntity = new TranslationEntity();
+        translationEntity.setCategory(categoryModelToCategoryEntity(translation.getCategory()));
+        translationEntity.setId(translation.getId());
+        translationEntity.setDescription(translation.getDescription());
+        translationEntity.setName(translation.getName());
+        translationEntity.setLanguage(languageModelToLanguageEntity(translation.getLanguage()));
+
+        return translationEntity;
     }
 
     public OrderLine orderLineEntityToOrderLineModel(OrderLineEntity orderLineEntity) {
@@ -74,8 +81,6 @@ public class ProviderConverter {
         orderLine.setProduct(productEntityToProductModel(orderLineEntity.getProduct()));
 
         return orderLine;
-
-        //return mapper.map(orderLineEntity, OrderLine.class);
     }
 
     public OrderLineEntity orderLineModelToOrderLineEntity(OrderLine orderLine) {
@@ -88,8 +93,6 @@ public class ProviderConverter {
         orderLineEntity.setQuantity(orderLine.getQuantity());
 
         return orderLineEntity;
-
-        //return mapper.map(orderLine, OrderLineEntity.class);
     }
 
     public Order orderEntityToOrderModel(OrderEntity orderEntity) {
@@ -100,8 +103,6 @@ public class ProviderConverter {
         order.setIsPayed(orderEntity.getPayed());
 
         return order;
-
-        //return mapper.map(orderEntity, Order.class);
     }
 
     public OrderEntity orderModelToOrderEntity(Order order) {
@@ -112,48 +113,63 @@ public class ProviderConverter {
         orderEntity.setUser(userModelToUserEntity(order.getUser()));
 
         return orderEntity;
+    }
 
-        //return mapper.map(order, OrderEntity.class);
+    public Category categoryEntityToCategoryModel(CategoryEntity categoryEntity){
+        Category category = new Category();
+        category.setId(categoryEntity.getId());
+        category.setDiscounts(categoryEntity.getDiscounts().stream().map(discountEntity -> discountEntityToDiscountModel(discountEntity)).toList());
+
+        return category;
+    }
+
+    public CategoryEntity categoryModelToCategoryEntity(Category category){
+        CategoryEntity categoryEntity = new CategoryEntity();
+        categoryEntity.setDiscounts(category.getDiscounts().stream().map(discount -> discountModelToDiscountEntity(discount)).toList());
+        categoryEntity.setId(category.getId());
+
+        return categoryEntity;
+    }
+
+    public Product productEntityToProductModel(ProductEntity productEntity){
+        Product product = new Product();
+        product.setId(productEntity.getId());
+        product.setDescription(productEntity.getDescription());
+        product.setName(productEntity.getName());
+        product.setCategory(categoryEntityToCategoryModel(productEntity.getCategory()));
+        product.setPrice(productEntity.getPrice());
+
+        return product;
+    }
+
+    public ProductEntity productModelToProductEntity(Product product){
+        ProductEntity productEntity = new ProductEntity();
+        productEntity.setId(product.getId());
+        productEntity.setDescription(product.getDescription());
+        productEntity.setName(product.getName());
+        productEntity.setCategory(categoryModelToCategoryEntity(product.getCategory()));
+        productEntity.setPrice(product.getPrice());
+
+        return productEntity;
     }
 
     public Discount discountEntityToDiscountModel(DiscountEntity discountEntity){
         Discount discount = new Discount();
         discount.setDiscountVal(discountEntity.getDiscountVal());
-        discount.setCategory(categoryEntityToCategoryModel(discountEntity.getCategory()));
         discount.setBeginDate(discountEntity.getBeginDate());
         discount.setEndDate(discountEntity.getEndDate());
         discount.setId(discountEntity.getId());
 
         return discount;
-
-        //return mapper.map(discountEntity, Discount.class);
     }
 
     public DiscountEntity discountModelToDiscountEntity(Discount discount){
         DiscountEntity discountEntity = new DiscountEntity();
         discountEntity.setDiscountVal(discount.getDiscountVal());
-        discountEntity.setCategory(categoryModelToCategoryEntity(discount.getCategory()));
         discountEntity.setId(discount.getId());
         discountEntity.setBeginDate(discount.getBeginDate());
         discountEntity.setEndDate(discount.getEndDate());
 
         return discountEntity;
-        //return mapper.map(discount, DiscountEntity.class);
-    }
-
-    public Category categoryEntityToCategoryModel(CategoryEntity categoryEntity){
-        return mapper.map(categoryEntity, Category.class);
-    }
-
-    public CategoryEntity categoryModelToCategoryEntity(Category category){
-        return mapper.map(category, CategoryEntity.class);
-    }
-
-    public Product productEntityToProductModel(ProductEntity productEntity){
-        return mapper.map(productEntity, Product.class);
-    }
-
-    public ProductEntity productModelToProductEntity(Product product){
-        return mapper.map(product, ProductEntity.class);
     }
 }
