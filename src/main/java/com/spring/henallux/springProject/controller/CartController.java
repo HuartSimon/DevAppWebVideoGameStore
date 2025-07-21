@@ -1,7 +1,6 @@
 package com.spring.henallux.springProject.controller;
 
 import com.spring.henallux.springProject.model.*;
-import com.spring.henallux.springProject.service.OrderLineService;
 import com.spring.henallux.springProject.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,19 +16,13 @@ import java.util.*;
 
 @Controller
 @RequestMapping(value = "/cart")
-@SessionAttributes({Constants.CURRENT_CART, Constants.CURRENT_USER, Constants.CURRENT_ORDER})
+@SessionAttributes({Constants.CURRENT_CART, Constants.CURRENT_USER})
 public class CartController {
     @Autowired
     private OrderService orderService;
 
-    @Autowired
-    private OrderLineService orderLineService;
-
     @ModelAttribute(Constants.CURRENT_CART)
     public Cart cart() { return new Cart(); }
-
-    @ModelAttribute(Constants.CURRENT_ORDER)
-    public Order order() { return new Order(); }
 
     @ModelAttribute(Constants.CURRENT_USER)
     public VisitorUser visitorUser() { return new VisitorUser(); }
@@ -37,7 +30,7 @@ public class CartController {
     @RequestMapping(method = RequestMethod.GET)
     public String cartGet(Model model, @ModelAttribute(value = Constants.CURRENT_CART) Cart cart) {
         HashMap<Integer, OrderLine> orderLines = cart.getOrderLines();
-        model.addAttribute("orderLines", orderLines.values());
+        model.addAttribute("orderLines", orderLines.values()); // TODO : passer la hash map complete pour popvuroi connaitre les id dans la page car les ids des order lines sont vident
 
         return "integrated:cart";
     }
@@ -46,30 +39,14 @@ public class CartController {
     public String order(Model model,
                         RedirectAttributes redirectAttributes,
                         @ModelAttribute(value = Constants.CURRENT_CART) Cart cart,
-                        @ModelAttribute(value = Constants.CURRENT_USER) User user,
-                        @ModelAttribute(value = Constants.CURRENT_ORDER) Order order)
+                        @ModelAttribute(value = Constants.CURRENT_USER) User user)
     {
         if (user instanceof VisitorUser) {
-            redirectAttributes.addFlashAttribute("notAuthenticatedError", "You must be logged in to place an order ! Please log in or sign up." ); //faire la trad
-            return "redirect:/cart"; // Redirect instead of integrated/forward to have the model.attribute : orderLines made in the GET
-            // If I make integrated, all my orderLines will be lost
-        } else { // If the user is not a visitor -> save order in the DB
-            order.setOrderDate(LocalDate.now());
-            order.setIsPayed(false);
-            order.setUser(user);
-            order.setId(null);
+            redirectAttributes.addFlashAttribute("notAuthenticatedError", "You must be logged in to place an order ! Please log in or sign up." );
+            return "redirect:/cart";
+        } else {
+            var order = cart.ToOrder(user);
             order = orderService.saveOrder(order);
-            // Save all the orderLines of the order
-            for (OrderLine orderLine : cart.getOrderLines().values()) {
-                orderLine.setOrder(order);
-
-                // WHAT IF IN THE DB, SOMETHING HAVE CHANGED MEANWHILE
-                // (between the orderLine is added in the cart and the moment the user order)
-
-                orderLine.setId(null); // Remove the session ID to assure the auto incremented ID in the DB
-                orderLine = orderLineService.saveOrderLine(orderLine);
-            }
-            cart.clear();
             return "redirect:/payment/" + order.getId();
         }
     }

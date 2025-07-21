@@ -1,7 +1,6 @@
 package com.spring.henallux.springProject.service;
 
 import com.spring.henallux.springProject.dataAccess.dao.OrderDataAccess;
-import com.spring.henallux.springProject.dataAccess.dao.OrderLineDataAccess;
 import com.spring.henallux.springProject.model.Cart;
 import com.spring.henallux.springProject.model.Order;
 import com.spring.henallux.springProject.model.OrderLine;
@@ -16,8 +15,6 @@ import java.util.ArrayList;
 public class OrderService {
     @Autowired
     private OrderDataAccess orderDAO;
-    @Autowired
-    private OrderLineDataAccess orderLineDAO;
 
     public Order saveOrder(Order order) {
         return orderDAO.saveOrder(order);
@@ -30,6 +27,4 @@ public class OrderService {
     public Order getOrderById(int orderId) {
         return orderDAO.findById(orderId);
     }
-
-
 }

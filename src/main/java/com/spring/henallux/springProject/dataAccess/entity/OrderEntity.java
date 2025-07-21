@@ -2,6 +2,7 @@ package com.spring.henallux.springProject.dataAccess.entity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "`order`")
@@ -21,15 +22,10 @@ public class OrderEntity {
     @ManyToOne
     private UserEntity user;
 
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderLineEntity> orderLines;
 
     public OrderEntity() {}
-    public OrderEntity(Integer id, LocalDate orderDate, Boolean isPayed, UserEntity user) {
-        setId(id);
-        setOrderDate(orderDate);
-        setPayed(isPayed);
-        setUser(user);
-    }
-
 
     public void setId(Integer id) {
         this.id = id;
@@ -44,6 +40,9 @@ public class OrderEntity {
         this.user = user;
     }
 
+    public void setOrderLines(List<OrderLineEntity> orderLines) {
+        this.orderLines = orderLines;
+    }
 
     public Integer getId() {
         return id;
@@ -56,5 +55,9 @@ public class OrderEntity {
     }
     public UserEntity getUser() {
         return user;
+    }
+
+    public List<OrderLineEntity> getOrderLines() {
+        return orderLines;
     }
 }

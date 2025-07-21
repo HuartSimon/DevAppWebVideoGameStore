@@ -4,7 +4,6 @@ import com.spring.henallux.springProject.Constants;
 import com.spring.henallux.springProject.model.Order;
 import com.spring.henallux.springProject.model.OrderLine;
 import com.spring.henallux.springProject.model.User;
-import com.spring.henallux.springProject.service.OrderLineService;
 import com.spring.henallux.springProject.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,31 +24,11 @@ import java.util.Map;
 public class MyOrdersController {
     @Autowired
     private OrderService orderService;
-    @Autowired
-    private OrderLineService orderLineService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String myOrders(Model model, @ModelAttribute(Constants.CURRENT_USER) User user) {
         ArrayList<Order> orders = orderService.getOrdersByUser(user);
-
-        List<Map<String, Object>> ordersWithPrice = new ArrayList<>();
-        for (Order order : orders) {
-            ArrayList<OrderLine> orderLines = orderLineService.getOrderLinesByOrderId(order.getId());
-            double orderPrice = 0;
-
-            for (OrderLine orderLine : orderLines) {
-                double orderLinePrice = orderLine.getPrice()*orderLine.getQuantity()*(1-(orderLine.getDiscount() == null ? 0 : orderLine.getDiscount()));
-                orderPrice += orderLinePrice;
-
-            }
-
-            Map<String, Object> map = new HashMap<>();
-            map.put("order", order);
-            map.put("orderPrice", orderPrice);
-            ordersWithPrice.add(map);
-        }
-
-        model.addAttribute("ordersWithPrice", ordersWithPrice);
+        model.addAttribute("orders", orders);
         return "integrated:myOrders";
     }
 }

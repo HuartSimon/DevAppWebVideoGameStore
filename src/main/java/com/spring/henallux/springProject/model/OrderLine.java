@@ -10,19 +10,10 @@ public class OrderLine {
     private Integer quantity;
     private Double price;
     private Double discount;
-    private Order order;
     private Product product;
 
 
     public OrderLine() { }
-    public OrderLine(Integer id, Integer quantity, Double price, Double discount, Order order, Product product) {
-        setId(id);
-        setQuantity(quantity);
-        setPrice(price);
-        setDiscount(discount);
-        setOrder(order);
-        setProduct(product);
-    }
 
 
     public void setId(Integer id) {
@@ -36,9 +27,6 @@ public class OrderLine {
     }
     public void setDiscount(Double discount) {
         this.discount = discount;
-    }
-    public void setOrder(Order order) {
-        this.order = order;
     }
     public void setProduct(Product product) {
         this.product = product;
@@ -57,11 +45,22 @@ public class OrderLine {
     public Double getDiscount() {
         return discount;
     }
-    public Order getOrder() {
-        return order;
-    }
     public Product getProduct() {
         return product;
+    }
+
+    public Double getTotalPrice(){
+        return quantity * getFinalPrice();
+    }
+
+    public Double getFinalPrice(){
+        var currentDiscountValue = getDiscount();
+
+        if(currentDiscountValue == null){
+            return getPrice();
+        }else {
+            return getPrice() - (getPrice() *  currentDiscountValue);
+        }
     }
 
     @Override
@@ -71,7 +70,6 @@ public class OrderLine {
                 ", quantity=" + quantity +
                 ", price=" + price +
                 ", discount=" + discount +
-                ", order=" + order +
                 ", product=" + product +
                 '}';
     }

@@ -26,12 +26,12 @@
     <h1 class="mb-4"><spring:message code="myOrders.title"/> </h1>
 
     <div class="row row-cols-1 row-cols-md-2 g-4">
-        <c:forEach items="${ordersWithPrice}" var="ordersWithPrice">
+        <c:forEach items="${orders}" var="order">
             <div class="col">
                 <div class="card shadow-sm h-100">
                     <div class="card-body">
                         <h5 class="card-title">
-                            <spring:message code="myOrders.orderDate" /> ${ordersWithPrice.order.orderDate}
+                            <spring:message code="myOrders.orderDate" /> ${order.orderDate}
                         </h5>
 
                         <c:set var="payedLabel"><spring:message code="myOrders.status.payed" /></c:set>
@@ -39,13 +39,13 @@
 
                         <p class="card-text">
                             <strong><spring:message code="myOrders.status" />:</strong>
-                            <span class="${ordersWithPrice.order.isPayed ? 'text-success' : 'text-danger'}">
-                                ${ordersWithPrice.order.isPayed ? payedLabel : notPayedLabel}
+                            <span class="${order.isPayed ? 'text-success' : 'text-danger'}">
+                                ${order.isPayed ? payedLabel : notPayedLabel}
                             </span><br>
-                            <strong><spring:message code="myOrders.price" />:</strong> ${ordersWithPrice.orderPrice}$
+                            <strong><spring:message code="myOrders.price" />:</strong> ${order.getTotalPrice()}$
                         </p>
 
-                        <a href="<spring:url value='/orderDetails/${ordersWithPrice.order.id}'/>" class="btn btn-primary">
+                        <a href="<spring:url value='/orderDetails/${order.id}'/>" class="btn btn-primary">
                             <spring:message code="myOrders.detailsLink" />
                         </a>
                     </div>

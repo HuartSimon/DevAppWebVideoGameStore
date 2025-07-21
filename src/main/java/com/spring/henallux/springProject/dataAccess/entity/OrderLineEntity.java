@@ -30,14 +30,6 @@ public class OrderLineEntity {
 
 
     public OrderLineEntity() { }
-    public OrderLineEntity(Integer id, Integer quantity, Double price, Double discount, OrderEntity order, ProductEntity product) {
-        setId(id);
-        setQuantity(quantity);
-        setPrice(price);
-        setDiscount(discount);
-        setOrder(order);
-        setProduct(product);
-    }
 
 
     public void setId(Integer id) {

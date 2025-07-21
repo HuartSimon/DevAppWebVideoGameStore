@@ -48,7 +48,7 @@
                         <input type="hidden" name="cmd" value="_xclick">
 
                         <!-- Payment Info -->
-                        <input type="hidden" name="amount" value="${orderPrice}">
+                        <input type="hidden" name="amount" value="${order.getTotalPrice()}">
                         <input type="hidden" name="item_name" value="Sample Item">
                         <input type="hidden" name="currency_code" value="USD">
                         <input type="hidden" name="lc" value="en_US">

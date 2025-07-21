@@ -13,9 +13,6 @@ public class LanguageEntity {
     private String label;
 
     public LanguageEntity() {}
-    public LanguageEntity(String label) {
-        setLabel(label);
-    }
 
     public String getLabel() {
         return label;

@@ -28,12 +28,6 @@ public class DiscountEntity {
 
 
     public DiscountEntity() {}
-    public DiscountEntity(Integer id, Double discountVal, LocalDateTime beginDate, LocalDateTime endDate) {
-        setId(id);
-        setDiscountVal(discountVal);
-        setBeginDate(beginDate);
-        setEndDate(endDate);
-    }
 
 
     public Integer getId() {

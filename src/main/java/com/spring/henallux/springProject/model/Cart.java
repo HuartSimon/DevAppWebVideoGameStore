@@ -2,8 +2,6 @@ package com.spring.henallux.springProject.model;
 
 import java.util.HashMap;
 
-// This class is a order wich is not saved in the DB yet.
-// It will be converted into order and will be saved in the DB when the user validate the order
 public class Cart {
     private HashMap<Integer, OrderLine> orderLines = new HashMap<>();
 
@@ -16,9 +14,16 @@ public class Cart {
         orderLines.remove(orderLineId);
     }
 
-    public void clear() {
+    public Order ToOrder(User user){
+        Order order = new Order(user);
+
+        order.setOrderLines(getOrderLines().values().stream().toList());
         orderLines.clear();
+
+        return order;
     }
 
-
+    public Double getTotalPrice() {
+        return orderLines.values().stream().mapToDouble(OrderLine::getTotalPrice).sum();
+    }
 }

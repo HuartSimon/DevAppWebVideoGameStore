@@ -27,13 +27,6 @@ public class TranslationEntity {
 
 
     public TranslationEntity() {}
-    public TranslationEntity(Integer id, String name, String description, CategoryEntity category, LanguageEntity language) {
-        setId(id);
-        setName(name);
-        setDescription(description);
-        setCategory(category);
-        setLanguage(language);
-    }
 
 
     public void setId(Integer id) {

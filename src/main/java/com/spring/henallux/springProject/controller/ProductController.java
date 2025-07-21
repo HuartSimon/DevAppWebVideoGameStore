@@ -13,7 +13,7 @@ import java.util.*;
 
 @Controller
 @RequestMapping("/product")
-@SessionAttributes({Constants.CURRENT_CART, Constants.CURRENT_ORDER, Constants.CURRENT_USER})
+@SessionAttributes({Constants.CURRENT_CART, Constants.CURRENT_USER})
 public class ProductController {
     @Autowired
     ProductService productService;
@@ -50,7 +50,6 @@ public class ProductController {
                               @Valid @ModelAttribute(value = Constants.CURRENT_ORDER_LINE) OrderLine orderLine,
                               @ModelAttribute(value = Constants.CURRENT_CART) Cart cart,
                               @ModelAttribute(value = Constants.CURRENT_USER) User user,
-                              @ModelAttribute(value = Constants.CURRENT_ORDER) Order order,
                               BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("errors", bindingResult.getAllErrors());
@@ -59,13 +58,13 @@ public class ProductController {
 
         Product product = productService.getProductById(id);
 
+        orderLine.setId(null);
         orderLine.setProduct(product);
         orderLine.setPrice(product.getPrice());
 
         var discount = product.getCategory().getCurrentDiscountValue();
         orderLine.setDiscount(discount == null ? null : discount);
-        orderLine.setId(cart.getOrderLines().size()+1);
-        cart.addOrderLine(orderLine.getId(), orderLine);
+        cart.addOrderLine(cart.getOrderLines().size()+1, orderLine);
         return "redirect:/cart";
     }
 }

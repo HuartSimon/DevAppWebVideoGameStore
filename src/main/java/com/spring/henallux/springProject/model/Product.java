@@ -57,7 +57,7 @@ public class Product {
         if(currentDiscountValue == null){
             return getPrice();
         }else {
-            return getPrice() - (getPrice() *  getCategory().getCurrentDiscountValue());
+            return getPrice() - (getPrice() *  currentDiscountValue);
         }
     }
 

@@ -71,11 +71,9 @@ public class ProviderConverter {
     }
 
     public OrderLine orderLineEntityToOrderLineModel(OrderLineEntity orderLineEntity) {
-
         OrderLine orderLine = new OrderLine();
         orderLine.setId(orderLineEntity.getId());
         orderLine.setDiscount(orderLineEntity.getDiscount());
-        orderLine.setOrder(orderEntityToOrderModel(orderLineEntity.getOrder()));
         orderLine.setPrice(orderLineEntity.getPrice());
         orderLine.setQuantity(orderLineEntity.getQuantity());
         orderLine.setProduct(productEntityToProductModel(orderLineEntity.getProduct()));
@@ -83,14 +81,15 @@ public class ProviderConverter {
         return orderLine;
     }
 
-    public OrderLineEntity orderLineModelToOrderLineEntity(OrderLine orderLine) {
+    public OrderLineEntity orderLineModelToOrderLineEntity(OrderLine orderLine, OrderEntity orderEntity) {
+        System.out.println("hjgjhgjhjhghjh" + orderLine);
         OrderLineEntity orderLineEntity = new OrderLineEntity();
-        orderLineEntity.setOrder(orderModelToOrderEntity(orderLine.getOrder()));
         orderLineEntity.setId(orderLine.getId());
         orderLineEntity.setDiscount(orderLine.getDiscount());
         orderLineEntity.setProduct(productModelToProductEntity(orderLine.getProduct()));
         orderLineEntity.setPrice(orderLine.getPrice());
         orderLineEntity.setQuantity(orderLine.getQuantity());
+        orderLineEntity.setOrder(orderEntity);
 
         return orderLineEntity;
     }
@@ -101,6 +100,7 @@ public class ProviderConverter {
         order.setOrderDate(orderEntity.getOrderDate());
         order.setId(orderEntity.getId());
         order.setIsPayed(orderEntity.getPayed());
+        order.setOrderLines(orderEntity.getOrderLines().stream().map(orderLine -> orderLineEntityToOrderLineModel(orderLine)).toList());
 
         return order;
     }
@@ -111,6 +111,7 @@ public class ProviderConverter {
         orderEntity.setId(order.getId());
         orderEntity.setPayed(order.getIsPayed());
         orderEntity.setUser(userModelToUserEntity(order.getUser()));
+        orderEntity.setOrderLines(order.getOrderLines().stream().map(orderLine -> orderLineModelToOrderLineEntity(orderLine, orderEntity)).toList());
 
         return orderEntity;
     }

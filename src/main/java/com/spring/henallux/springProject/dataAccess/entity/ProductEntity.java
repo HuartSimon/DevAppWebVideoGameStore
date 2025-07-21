@@ -27,13 +27,6 @@ public class ProductEntity {
 
 
     public ProductEntity() {}
-    public ProductEntity(Integer id, String name, String description, Double price, CategoryEntity category) {
-        setId(id);
-        setName(name);
-        setDescription(description);
-        setPrice(price);
-        setCategory(category);
-    }
 
 
     public void setId(Integer id) {
