@@ -132,11 +132,19 @@
                             </div>
                         </div>
                         <div class="btn-group btn-group-sm align-self-center" role="group">
-                            <button class="btn btn-outline-secondary" onclick="removeItem('${pageContext.request.contextPath}/cart/remove/${orderLineKey}')">−</button>
-                            <button class="btn btn-outline-secondary" onclick="addItem('${pageContext.request.contextPath}/cart/add/${orderLineKey}')">+</button>
-                            <button class="btn btn-outline-danger" onclick="deleteOrderLine('${pageContext.request.contextPath}/cart/delete/${orderLineKey}')">
-                                <spring:message code="cart.deleteButton" />
-                            </button>
+                            <form:form method="post" modelAttribute="currentCart" action="cart/decrease/${orderLineKey}">
+                                <form:button cssClass="btn btn-outline-secondary">-</form:button>
+                            </form:form>
+
+                            <form:form method="post" modelAttribute="currentCart" action="cart/add/${orderLineKey}">
+                                <form:button cssClass="btn btn-outline-secondary">+</form:button>
+                            </form:form>
+
+                            <form:form method="post" modelAttribute="currentCart" action="cart/remove/${orderLineKey}">
+                                <form:button cssClass="btn btn-outline-danger">
+                                    <spring:message code="cart.deleteButton" />
+                                </form:button>
+                            </form:form>
                         </div>
                     </li>
                 </c:forEach>
@@ -154,29 +162,4 @@
         </c:otherwise>
     </c:choose>
 </div>
-
-<!-- JS pour actions panier -->
-<script>
-    function deleteOrderLine(url) {
-        fetch(url)
-            .then(response => response.text())
-            .then(() => location.reload())
-            .catch(error => console.error("Error:", error));
-    }
-
-    function addItem(url) {
-        fetch(url)
-            .then(response => response.text())
-            .then(() => location.reload())
-            .catch(error => console.error("Error:", error));
-    }
-
-    function removeItem(url) {
-        fetch(url)
-            .then(response => response.text())
-            .then(() => location.reload())
-            .catch(error => console.error("Error:", error));
-    }
-</script>
-
 

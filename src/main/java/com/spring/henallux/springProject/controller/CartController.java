@@ -50,6 +50,30 @@ public class CartController {
         }
     }
 
+    @RequestMapping(value = "/add/{orderLineId}", method = RequestMethod.POST)
+    public String addProductQuantity(
+            @PathVariable(value = "orderLineId") Integer orderLineId,
+            @ModelAttribute(value = Constants.CURRENT_CART) Cart cart){
+        cart.increaseProductQuantity(orderLineId, 1);
+        return "redirect:/cart";
+    }
+
+    @RequestMapping(value = "/remove/{orderLineId}", method = RequestMethod.POST)
+    public String removeProduct(
+            @PathVariable(value = "orderLineId") Integer orderLineId,
+            @ModelAttribute(value = Constants.CURRENT_CART) Cart cart){
+        cart.removeOrderLine(orderLineId);
+        return "redirect:/cart";
+    }
+
+    @RequestMapping(value = "/decrease/{orderLineId}", method = RequestMethod.POST)
+    public String decreaseProductQuantity(
+            @PathVariable(value = "orderLineId") Integer orderLineId,
+            @ModelAttribute(value = Constants.CURRENT_CART) Cart cart){
+        cart.decreaseProductQuantity(orderLineId, 1);
+        return "redirect:/cart";
+    }
+
 //    @RequestMapping(value = "/delete/{orderLineId}")
 //    public ResponseEntity<String> deleteOrderLine(@PathVariable(value = "orderLineId") Integer orderLineId, @ModelAttribute(value = Constants.CURRENT_CART) Cart cart) {
 //        if (cart != null) {

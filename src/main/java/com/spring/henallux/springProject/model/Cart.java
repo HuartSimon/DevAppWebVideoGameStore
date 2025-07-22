@@ -17,14 +17,24 @@ public class Cart {
             orderLine.addQuantity(quantity);
         }
     }
+
+    public void increaseProductQuantity(Integer id, Integer quantity){
+        var orderLine = orderLines.get(id);
+        if(orderLine != null)
+            orderLine.addQuantity(quantity);
+    }
+
     public void removeOrderLine(Integer id) {
         orderLines.remove(id);
     }
 
     public void decreaseProductQuantity(Integer id, Integer quantity){
         var orderLine = orderLines.get(id);
-        if(orderLine != null)
+        if(orderLine != null){
             orderLine.decreaseQuantity(quantity);
+            if(orderLine.getQuantity() == 0)
+                removeOrderLine(id);
+        }
     }
 
     public Order ToOrder(User user){

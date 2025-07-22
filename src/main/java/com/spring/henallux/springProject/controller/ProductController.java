@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
+import java.io.Console;
 import java.util.*;
 
 @Controller
@@ -26,9 +27,6 @@ public class ProductController {
 
     @ModelAttribute(Constants.CURRENT_CART)
     public Cart cart() { return new Cart(); }
-
-    @ModelAttribute(Constants.CURRENT_ORDER)
-    public Order order() { return new Order(); }
 
     @ModelAttribute(Constants.CURRENT_USER)
     public VisitorUser visitorUser() { return new VisitorUser(); }
@@ -50,7 +48,7 @@ public class ProductController {
                               @Valid @ModelAttribute(value = Constants.CURRENT_NEW_ORDER_LINE_FORM) NewOrderLineForm newOrderLineForm,
                               @ModelAttribute(value = Constants.CURRENT_CART) Cart cart,
                               @ModelAttribute(value = Constants.CURRENT_USER) User user,
-                              BindingResult bindingResult) {
+                              final BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("errors", bindingResult.getAllErrors());
             return "integrated:product/" + id;
