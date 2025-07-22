@@ -1,8 +1,6 @@
 package com.spring.henallux.springProject.model;
 
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Positive;
 
 public class OrderLine {
     private Integer id;
@@ -15,6 +13,12 @@ public class OrderLine {
 
     public OrderLine() { }
 
+    public OrderLine(Integer quantity, Product product) {
+        setQuantity(quantity);
+        setProduct(product);
+        setPrice(product.getPrice());
+        setDiscount(product.getCategory().getCurrentDiscountValue());
+    }
 
     public void setId(Integer id) {
         this.id = id;
@@ -61,6 +65,14 @@ public class OrderLine {
         }else {
             return getPrice() - (getPrice() *  currentDiscountValue);
         }
+    }
+
+    public void addQuantity(Integer quantity) {
+        setQuantity(getQuantity() + quantity);
+    }
+
+    public void decreaseQuantity(Integer quantity){
+        setQuantity(getQuantity() - quantity);
     }
 
     @Override

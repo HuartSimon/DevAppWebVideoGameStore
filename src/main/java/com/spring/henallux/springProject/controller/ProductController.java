@@ -21,8 +21,8 @@ public class ProductController {
     @Autowired
     TranslationService translationService;
 
-    @ModelAttribute(Constants.CURRENT_ORDER_LINE)
-    public OrderLine orderLine() { return new OrderLine(); }
+    @ModelAttribute(Constants.CURRENT_NEW_ORDER_LINE_FORM)
+    public NewOrderLineForm orderLine() { return new NewOrderLineForm(); }
 
     @ModelAttribute(Constants.CURRENT_CART)
     public Cart cart() { return new Cart(); }
@@ -47,7 +47,7 @@ public class ProductController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
     public String productPost(@PathVariable("id") int id, Model model,
-                              @Valid @ModelAttribute(value = Constants.CURRENT_ORDER_LINE) OrderLine orderLine,
+                              @Valid @ModelAttribute(value = Constants.CURRENT_NEW_ORDER_LINE_FORM) NewOrderLineForm newOrderLineForm,
                               @ModelAttribute(value = Constants.CURRENT_CART) Cart cart,
                               @ModelAttribute(value = Constants.CURRENT_USER) User user,
                               BindingResult bindingResult) {
@@ -57,14 +57,7 @@ public class ProductController {
         }
 
         Product product = productService.getProductById(id);
-
-        orderLine.setId(null);
-        orderLine.setProduct(product);
-        orderLine.setPrice(product.getPrice());
-
-        var discount = product.getCategory().getCurrentDiscountValue();
-        orderLine.setDiscount(discount == null ? null : discount);
-        cart.addOrderLine(cart.getOrderLines().size()+1, orderLine);
+        cart.addProduct(product, newOrderLineForm.getQuantity());
         return "redirect:/cart";
     }
 }

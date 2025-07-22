@@ -50,7 +50,7 @@
         <p><strong><spring:message code="product.category"/>:</strong> ${translatedCategory.name}</p>
         <p><strong><spring:message code="product.category.description"/>:</strong> ${translatedCategory.description}</p>
 
-        <form:form method="post" modelAttribute="currentOrderLine" cssClass="mt-4">
+        <form:form method="post" modelAttribute="currentNewOrderLineForm" cssClass="mt-4">
             <div class="mb-3">
                 <form:label path="quantity" cssClass="form-label">
                     <spring:message code="product.quantity"/>

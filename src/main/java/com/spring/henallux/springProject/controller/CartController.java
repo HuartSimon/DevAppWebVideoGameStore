@@ -29,8 +29,7 @@ public class CartController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String cartGet(Model model, @ModelAttribute(value = Constants.CURRENT_CART) Cart cart) {
-        HashMap<Integer, OrderLine> orderLines = cart.getOrderLines();
-        model.addAttribute("orderLines", orderLines.values()); // TODO : passer la hash map complete pour popvuroi connaitre les id dans la page car les ids des order lines sont vident
+        model.addAttribute("cart", cart);
 
         return "integrated:cart";
     }
@@ -51,66 +50,66 @@ public class CartController {
         }
     }
 
-    @RequestMapping(value = "/delete/{orderLineId}")
-    public ResponseEntity<String> deleteOrderLine(@PathVariable(value = "orderLineId") Integer orderLineId, @ModelAttribute(value = Constants.CURRENT_CART) Cart cart) {
-        if (cart != null) {
-            boolean removed = cart.getOrderLines().values().removeIf(orderLine -> orderLine.getId().equals(orderLineId));
-            if (removed) {
-                return ResponseEntity.ok("Order line deleted successfully!");
-            } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Order line not found in the cart.");
-            }
-        }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cart not found.");
-
-    }
-
-    // Ajouter un article
-    @RequestMapping(value = "/add/{orderLineId}")
-    public ResponseEntity<String> addItem(@PathVariable(value = "orderLineId") Integer orderLineId, @ModelAttribute(value = Constants.CURRENT_CART) Cart cart) {
-        if (cart != null) {
-            for (OrderLine orderLine : cart.getOrderLines().values()) {
-                if (orderLine.getId().equals(orderLineId)) {
-                    orderLine.setQuantity(orderLine.getQuantity() + 1);
-                    return ResponseEntity.ok("Item added successfully!");
-                }
-            }
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Order line not found in the cart.");
-        }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cart not found.");
-    }
-
-    @RequestMapping(value = "/remove/{orderLineId}")
-    public ResponseEntity<String> removeItem(@PathVariable(value = "orderLineId") Integer orderLineId, @ModelAttribute(value = Constants.CURRENT_CART) Cart cart) {
-        if (cart != null) {
-            HashMap<Integer, OrderLine> orderLines = cart.getOrderLines();
-
-            for(Integer key : orderLines.keySet()) {
-                OrderLine orderLine = orderLines.get(key);
-                if (orderLine.getId().equals(orderLineId)) {
-                    if (orderLine.getQuantity() > 1) {
-                        orderLine.setQuantity(orderLine.getQuantity() - 1);
-                    } else {
-                        cart.removeOrderLine(orderLine.getId());
-                    }
-                    return ResponseEntity.ok("Item removed successfully!");
-                }
-            }
-
-            /*for (OrderLine orderLine : orderLines.values()) {
-                if (orderLine.getId().equals(orderLineId)) {
-                    if (orderLine.getQuantity() > 1) {
-                        orderLine.setQuantity(orderLine.getQuantity() - 1);
-                    } else {
-                        cart.removeOrderLine(orderLine.getId());
-                    }
-                    return ResponseEntity.ok("Item removed successfully!");
-                }
-            }*/
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Order line not found in the cart.");
-        }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cart not found.");
-    }
+//    @RequestMapping(value = "/delete/{orderLineId}")
+//    public ResponseEntity<String> deleteOrderLine(@PathVariable(value = "orderLineId") Integer orderLineId, @ModelAttribute(value = Constants.CURRENT_CART) Cart cart) {
+//        if (cart != null) {
+//            boolean removed = cart.getOrderLines().values().removeIf(orderLine -> orderLine.getId().equals(orderLineId));
+//            if (removed) {
+//                return ResponseEntity.ok("Order line deleted successfully!");
+//            } else {
+//                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Order line not found in the cart.");
+//            }
+//        }
+//        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cart not found.");
+//
+//    }
+//
+//    // Ajouter un article
+//    @RequestMapping(value = "/add/{orderLineId}")
+//    public ResponseEntity<String> addItem(@PathVariable(value = "orderLineId") Integer orderLineId, @ModelAttribute(value = Constants.CURRENT_CART) Cart cart) {
+//        if (cart != null) {
+//            for (var orderLine : cart.getOrderLines().entrySet()) {
+//                if (orderLine.getKey().equals(orderLineId)) {
+//                    orderLine.getValue().setQuantity(orderLine.getValue().getQuantity() + 1);
+//                    return ResponseEntity.ok("Item added successfully!");
+//                }
+//            }
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Order line not found in the cart.");
+//        }
+//        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cart not found.");
+//    }
+//
+//    @RequestMapping(value = "/remove/{orderLineId}")
+//    public ResponseEntity<String> removeItem(@PathVariable(value = "orderLineId") Integer orderLineId, @ModelAttribute(value = Constants.CURRENT_CART) Cart cart) {
+//        if (cart != null) {
+//            HashMap<Integer, OrderLine> orderLines = cart.getOrderLines();
+//
+//            for(Integer key : orderLines.keySet()) {
+//                OrderLine orderLine = orderLines.get(key);
+//                if (orderLine.getId().equals(orderLineId)) {
+//                    if (orderLine.getQuantity() > 1) {
+//                        orderLine.setQuantity(orderLine.getQuantity() - 1);
+//                    } else {
+//                        cart.removeOrderLine(orderLine.getId());
+//                    }
+//                    return ResponseEntity.ok("Item removed successfully!");
+//                }
+//            }
+//
+//            /*for (OrderLine orderLine : orderLines.values()) {
+//                if (orderLine.getId().equals(orderLineId)) {
+//                    if (orderLine.getQuantity() > 1) {
+//                        orderLine.setQuantity(orderLine.getQuantity() - 1);
+//                    } else {
+//                        cart.removeOrderLine(orderLine.getId());
+//                    }
+//                    return ResponseEntity.ok("Item removed successfully!");
+//                }
+//            }*/
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Order line not found in the cart.");
+//        }
+//        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cart not found.");
+//    }
 
 }
 

@@ -7,11 +7,24 @@ public class Cart {
 
     public HashMap<Integer, OrderLine>  getOrderLines() { return orderLines; }
 
-    public void addOrderLine(Integer orderLineId, OrderLine orderLine) {
-        orderLines.put(orderLineId, orderLine);
+    public void addProduct(Product product, Integer quantity) {
+
+        var orderLine = orderLines.get(product.getId());
+
+        if(orderLine == null){
+            orderLines.put(product.getId(), new OrderLine(quantity, product));
+        }else{
+            orderLine.addQuantity(quantity);
+        }
     }
-    public void removeOrderLine(Integer orderLineId) {
-        orderLines.remove(orderLineId);
+    public void removeOrderLine(Integer id) {
+        orderLines.remove(id);
+    }
+
+    public void decreaseProductQuantity(Integer id, Integer quantity){
+        var orderLine = orderLines.get(id);
+        if(orderLine != null)
+            orderLine.decreaseQuantity(quantity);
     }
 
     public Order ToOrder(User user){
@@ -25,5 +38,9 @@ public class Cart {
 
     public Double getTotalPrice() {
         return orderLines.values().stream().mapToDouble(OrderLine::getTotalPrice).sum();
+    }
+
+    public boolean isEmpty(){
+        return orderLines == null || orderLines.isEmpty() || orderLines.values().isEmpty();
     }
 }

@@ -91,7 +91,7 @@
     <h1 class="text-center"><spring:message code="cart.title" /></h1>
 
     <c:choose>
-        <c:when test="${empty orderLines}">
+        <c:when test="${cart.isEmpty()}">
             <div class="alert alert-info text-center mt-4">
                 <spring:message code="cart.empty" />
             </div>
@@ -99,14 +99,15 @@
         <c:otherwise>
             <p class="mt-4"><strong><spring:message code="cart.orderLines" /></strong></p>
             <ul class="list-group mb-4">
-                <c:set var="totalOrder" value="0" />
-                <c:forEach items="${orderLines}" var="orderLine">
+                <c:forEach items="${cart.orderLines.entrySet()}" var="orderLineEntrySet">
+                    <c:set value="${orderLineEntrySet.getKey()}" var="orderLineKey" />
+                    <c:set value="${orderLineEntrySet.getValue()}" var="orderLine" />
                     <c:set value="${orderLine.discount}" var="discount" />
 
                     <li id="orderLine-${orderLine.id}" class="list-group-item d-flex justify-content-between align-items-start">
                         <div class="ms-2 me-auto">
                             <div class="fw-bold">
-                                    ${orderLine.quantity}× ${orderLine.product.name}
+                                ${orderLine.quantity}× ${orderLine.product.name}
                             </div>
                             <div>
                                 <spring:message code="cart.unitPrice" /> :
@@ -131,15 +132,13 @@
                             </div>
                         </div>
                         <div class="btn-group btn-group-sm align-self-center" role="group">
-                            <button class="btn btn-outline-secondary" onclick="removeItem('${pageContext.request.contextPath}/cart/remove/${orderLine.id}')">−</button>
-                            <button class="btn btn-outline-secondary" onclick="addItem('${pageContext.request.contextPath}/cart/add/${orderLine.id}')">+</button>
-                            <button class="btn btn-outline-danger" onclick="deleteOrderLine('${pageContext.request.contextPath}/cart/delete/${orderLine.id}')">
+                            <button class="btn btn-outline-secondary" onclick="removeItem('${pageContext.request.contextPath}/cart/remove/${orderLineKey}')">−</button>
+                            <button class="btn btn-outline-secondary" onclick="addItem('${pageContext.request.contextPath}/cart/add/${orderLineKey}')">+</button>
+                            <button class="btn btn-outline-danger" onclick="deleteOrderLine('${pageContext.request.contextPath}/cart/delete/${orderLineKey}')">
                                 <spring:message code="cart.deleteButton" />
                             </button>
                         </div>
                     </li>
-                    <c:set var="totalLine" value="${(orderLine.quantity * orderLine.price) * (1 - discount)}" />
-                    <c:set var="totalOrder" value="${totalOrder + totalLine}" />
                 </c:forEach>
             </ul>
 
