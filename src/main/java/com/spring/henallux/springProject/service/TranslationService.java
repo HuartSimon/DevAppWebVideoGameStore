@@ -17,7 +17,7 @@ public class TranslationService {
     @Autowired
     private TranslationDataAccess translationDAO;
 
-    public Translation getTranslationByCategoryAndLanguage(Category category, Language language) {
-        return translationDAO.findByCategoryAndLanguage(category, language);
+    public Translation getTranslationByCategoryAndLanguage(int categoryId, String languageId) {
+        return translationDAO.findByCategoryAndLanguage(categoryId, languageId);
     }
 }

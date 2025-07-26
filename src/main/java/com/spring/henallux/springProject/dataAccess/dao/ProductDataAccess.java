@@ -9,6 +9,6 @@ import java.util.List;
 public interface ProductDataAccess {
     Product findById(int id);
     ArrayList<Product> findAll();
-    ArrayList<Product> findByCategory(Category category);
+    ArrayList<Product> findByCategoryId(Integer categoryId);
 
 }

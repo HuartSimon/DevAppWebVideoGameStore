@@ -3,6 +3,8 @@ package com.spring.henallux.springProject.configuration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.DefaultMessageCodesResolver;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -50,5 +52,10 @@ public class MainConfiguration implements WebMvcConfigurer {
         resolver.setCookieName("localeCookie");
         resolver.setCookieMaxAge(-1); // until the end of the session
         return resolver;
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }

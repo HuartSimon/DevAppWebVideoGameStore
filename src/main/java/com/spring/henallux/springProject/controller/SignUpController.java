@@ -1,18 +1,15 @@
 package com.spring.henallux.springProject.controller;
-import com.spring.henallux.springProject.configuration.WebSecurityConfiguration;
+
 import com.spring.henallux.springProject.model.User;
-import com.spring.henallux.springProject.model.VisitorUser;
 import com.spring.henallux.springProject.service.UserService;
-import org.apache.tomcat.util.bcel.classfile.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import com.spring.henallux.springProject.Constants;
-
 import javax.validation.Valid;
 import java.util.ArrayList;
 
@@ -22,8 +19,11 @@ public class SignUpController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private PasswordEncoder encoder;
+
     @ModelAttribute(Constants.CURRENT_USER)
-    public VisitorUser visitorUser() { return new VisitorUser(); }
+    public User currentUser() { return new User(); }
 
     @RequestMapping(method = RequestMethod.GET)
     public String signupForm(Model model) {
@@ -59,7 +59,6 @@ public class SignUpController {
         user.setCredentialsNonExpired(true);
         user.setAccountNonLocked(true);
 
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         user.setPassword(encoder.encode(user.getPassword()));
 
         userService.saveUser(user);

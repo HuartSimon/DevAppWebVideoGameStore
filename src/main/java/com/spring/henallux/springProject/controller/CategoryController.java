@@ -23,7 +23,7 @@ public class CategoryController {
         List<Category> categories = categoryService.getAllCategories();
         List<Translation> translatedCategories = categories
             .stream()
-            .map(c -> translationService.getTranslationByCategoryAndLanguage(c, new Language(locale.getLanguage())))
+            .map(c -> translationService.getTranslationByCategoryAndLanguage(c.getId(), locale.getLanguage()))
             .toList();
 
         model.addAttribute("translatedCategories", translatedCategories);

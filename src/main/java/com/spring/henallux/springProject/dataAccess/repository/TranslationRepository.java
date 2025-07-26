@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TranslationRepository extends JpaRepository<TranslationEntity, Integer> {
     TranslationEntity findById(int id);
-    TranslationEntity findByCategoryAndLanguage(CategoryEntity category, LanguageEntity language);
+    TranslationEntity findByCategory_IdAndLanguage_Label(int categoryId, String languageId);
 }

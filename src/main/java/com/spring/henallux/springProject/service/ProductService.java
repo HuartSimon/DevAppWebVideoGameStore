@@ -27,7 +27,7 @@ public class ProductService {
         return productDAO.findById(id);
     }
 
-    public List<Product> getProductsByCategoryId(Category category) {
-        return productDAO.findByCategory(category);
+    public List<Product> getProductsByCategoryId(int categoryId) {
+        return productDAO.findByCategoryId(categoryId);
     }
 }

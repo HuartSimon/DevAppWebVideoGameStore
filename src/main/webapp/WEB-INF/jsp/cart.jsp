@@ -150,8 +150,8 @@
                 </c:forEach>
             </ul>
 
-            <c:if test="${not empty notAuthenticatedError}">
-                <div class="alert alert-danger">${notAuthenticatedError}</div>
+            <c:if test="${notAuthenticatedError}">
+                <div class="alert alert-danger"><spring:message code="Authentication.notAuthenticatedError"/></div>
             </c:if>
 
             <p class="fs-5"><strong><spring:message code="cart.total" />:</strong> <span id="totalOrder"><fmt:formatNumber value="${currentCart.getTotalPrice()}" type="number" minFractionDigits="2" maxFractionDigits="2" />$</span></p>

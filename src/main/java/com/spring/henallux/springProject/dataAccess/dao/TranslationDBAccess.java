@@ -1,11 +1,7 @@
 package com.spring.henallux.springProject.dataAccess.dao;
 
-import com.spring.henallux.springProject.dataAccess.entity.CategoryEntity;
-import com.spring.henallux.springProject.dataAccess.entity.LanguageEntity;
 import com.spring.henallux.springProject.dataAccess.repository.TranslationRepository;
 import com.spring.henallux.springProject.dataAccess.util.ProviderConverter;
-import com.spring.henallux.springProject.model.Category;
-import com.spring.henallux.springProject.model.Language;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.spring.henallux.springProject.dataAccess.entity.TranslationEntity;
@@ -43,10 +39,8 @@ public class TranslationDBAccess implements TranslationDataAccess {
     }
 
     @Override
-    public Translation findByCategoryAndLanguage(Category category, Language language) {
-        CategoryEntity categoryEntity = providerConverter.categoryModelToCategoryEntity(category);
-        LanguageEntity languageEntity = providerConverter.languageModelToLanguageEntity(language);
-        TranslationEntity translationEntity =  translationRepository.findByCategoryAndLanguage(categoryEntity, languageEntity);
+    public Translation findByCategoryAndLanguage(int categoryId, String languageId) {
+        TranslationEntity translationEntity =  translationRepository.findByCategory_IdAndLanguage_Label(categoryId, languageId);
         return providerConverter.translationEntityToTranslationModel(translationEntity);
     }
 }

@@ -9,12 +9,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
-import java.io.Console;
 import java.util.*;
 
 @Controller
 @RequestMapping("/product")
-@SessionAttributes({Constants.CURRENT_CART, Constants.CURRENT_USER})
+@SessionAttributes({Constants.CURRENT_CART})
 public class ProductController {
     @Autowired
     ProductService productService;
@@ -22,32 +21,25 @@ public class ProductController {
     @Autowired
     TranslationService translationService;
 
-    @ModelAttribute(Constants.CURRENT_NEW_ORDER_LINE_FORM)
-    public NewOrderLineForm orderLine() { return new NewOrderLineForm(); }
-
     @ModelAttribute(Constants.CURRENT_CART)
     public Cart cart() { return new Cart(); }
-
-    @ModelAttribute(Constants.CURRENT_USER)
-    public VisitorUser visitorUser() { return new VisitorUser(); }
-
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String productGet(@PathVariable("id") int id, Model model, Locale locale) {
         Product product = productService.getProductById(id);
-        Translation translatedCategory = translationService.getTranslationByCategoryAndLanguage(product.getCategory(), new Language(locale.getLanguage()));
+        Translation translatedCategory = translationService.getTranslationByCategoryAndLanguage(product.getCategory().getId(), locale.getLanguage());
 
         model.addAttribute("product", product);
         model.addAttribute("translatedCategory", translatedCategory);
+        model.addAttribute("currentNewOrderLineForm", new NewOrderLineForm());
 
         return "integrated:product";
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
     public String productPost(@PathVariable("id") int id, Model model,
-                              @Valid @ModelAttribute(value = Constants.CURRENT_NEW_ORDER_LINE_FORM) NewOrderLineForm newOrderLineForm,
+                              @Valid @ModelAttribute(name = "currentNewOrderLineForm") NewOrderLineForm newOrderLineForm,
                               @ModelAttribute(value = Constants.CURRENT_CART) Cart cart,
-                              @ModelAttribute(value = Constants.CURRENT_USER) User user,
                               final BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("errors", bindingResult.getAllErrors());

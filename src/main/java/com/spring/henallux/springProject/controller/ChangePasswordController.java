@@ -7,11 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 
 @Controller
 @RequestMapping(value = "/changePassword")
@@ -20,6 +19,9 @@ public class ChangePasswordController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @RequestMapping(method = RequestMethod.GET)
     public String editForm() {
@@ -31,9 +33,8 @@ public class ChangePasswordController {
                              @RequestParam("oldPassword") String oldPassword,
                              @RequestParam("newPassword") String newPassword,
                              @RequestParam("confirmedNewPassword") String confirmedNewPassword) {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-        if(!(encoder.matches(oldPassword, user.getPassword()))) {
+        if(!(passwordEncoder.matches(oldPassword, user.getPassword()))) {
             model.addAttribute("oldPasswordError", true);
             return "integrated:changePassword";
         }
@@ -42,12 +43,8 @@ public class ChangePasswordController {
             return "integrated:changePassword";
         }
 
-        user.setPassword(newPassword);
-
-        user.setPassword(encoder.encode(user.getPassword())); //Pq pas mettre direct newPassword ?
-
+        user.setPassword(passwordEncoder.encode(newPassword));
         userService.saveUser(user);
-
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Authentication newAuthentication = new UsernamePasswordAuthenticationToken(user, authentication.getCredentials(), authentication.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(newAuthentication);

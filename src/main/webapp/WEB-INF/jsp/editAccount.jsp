@@ -72,7 +72,7 @@
                         <spring:message code="editAccount.title" />
                     </h1>
 
-                    <form:form method="post" modelAttribute="currentUser">
+                    <form:form method="post" modelAttribute="editUserForm">
                         <!-- Change Password -->
                         <div class="mb-3 d-flex justify-content-between align-items-center">
                             <label class="form-label m-0">

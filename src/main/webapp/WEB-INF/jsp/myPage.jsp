@@ -60,8 +60,9 @@
                         <li class="list-group-item">
                             <c:set var="maleLabel"><spring:message code="myPage.gender.male" /></c:set>
                             <c:set var="femaleLabel"><spring:message code="myPage.gender.female" /></c:set>
+                            <c:set var="nonSpecifiedLabel"><spring:message code="myPage.gender.nonSpecified" /></c:set>
                             <strong><spring:message code="myPage.gender"/>:</strong>
-                            ${currentUser.isMan ? maleLabel : femaleLabel}
+                            ${currentUser.isMan ? maleLabel : (currentUser.isMan == null ? nonSpecifiedLabel : femaleLabel)}
                         </li>
                     </ul>
                 </div>

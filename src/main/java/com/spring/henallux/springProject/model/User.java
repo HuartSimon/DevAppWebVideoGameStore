@@ -1,10 +1,8 @@
 package com.spring.henallux.springProject.model;
 
-import org.springframework.format.annotation.NumberFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.*;
 import java.util.ArrayList;
@@ -165,6 +163,14 @@ public class User implements UserDetails {
     }
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public void update(EditUserForm editUserForm){
+        setFirstName(editUserForm.getFirstName());
+        setLastName(editUserForm.getLastName());
+        setAddress(editUserForm.getAddress());
+        setPhoneNumber(editUserForm.getPhoneNumber());
+        setIsMan(editUserForm.getIsMan());
     }
 
     @Override

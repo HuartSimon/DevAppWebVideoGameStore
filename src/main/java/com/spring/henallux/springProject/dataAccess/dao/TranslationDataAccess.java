@@ -10,5 +10,5 @@ import java.util.List;
 public interface TranslationDataAccess {
     Translation findById(int id);
     ArrayList<Translation> findAll();
-    Translation findByCategoryAndLanguage(Category category, Language language);
+    Translation findByCategoryAndLanguage(int categoryId, String languageId);
 }
