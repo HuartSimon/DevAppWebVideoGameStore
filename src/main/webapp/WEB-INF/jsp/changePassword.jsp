@@ -1,83 +1,50 @@
-<%--<%@ page pageEncoding="UTF-8" contentType="text/html;charset=UTF-8"%>--%>
-<%--<%@include file="./include/importTags.jsp"%>--%>
-
-<%--<h1><spring:message code="changePassword.title" /></h1>--%>
-
-<%--<form:form method="post" modelAttribute="currentUser">--%>
-<%--    <c:if test="${oldPasswordError}">--%>
-<%--        < style="color: red"><spring:message code="Password.oldPassword" /></p>--%>
-<%--    </c:if>--%>
-<%--    <label><spring:message code="changePassword.oldPassword.label" /></label>--%>
-<%--    <input type="password" name="oldPassword" required/>--%>
-<%--    <br>--%>
-
-<%--    <label><spring:message code="changePassword.newPassword.label" />></label>--%>
-<%--    <input type="password" name="newPassword" required/>--%>
-<%--    <br>--%>
-
-<%--    <c:if test="confirmedNewPasswordError">--%>
-<%--        <p style="color: #ef0d0d"><spring:message code="Password.mismatch"/></p>--%>
-<%--    </c:if>--%>
-<%--    <label><spring:message code="changePassword.confirmPassword.label"/></label>--%>
-<%--    <input type="password" name="confirmedNewPassword" required/>--%>
-<%--    <br>--%>
-
-<%--    <form:button><spring:message code="changePassword.submit"/></form:button>--%>
-<%--</form:form>--%>
-
 <%@ page pageEncoding="UTF-8" contentType="text/html;charset=UTF-8"%>
 <%@include file="./include/importTags.jsp"%>
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6 col-lg-5">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <h1 class="card-title text-center mb-4">
-                        <spring:message code="changePassword.title" />
-                    </h1>
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title text-center mb-4">
+                    <spring:message code="changePassword.title" />
+                </h1>
 
-                    <form:form method="post" modelAttribute="currentUser">
-                        <c:if test="${oldPasswordError}">
-                            <div class="alert alert-danger" role="alert">
-                                <spring:message code="Password.oldPassword" />
-                            </div>
-                        </c:if>
-
-                        <div class="mb-3">
-                            <label class="form-label">
-                                <spring:message code="changePassword.oldPassword.label" />
-                            </label>
-                            <input type="password" name="oldPassword" class="form-control" required />
+                <form:form method="post" modelAttribute="currentUser">
+                    <c:if test="${oldPasswordError}">
+                        <div class="alert alert-danger" role="alert">
+                            <spring:message code="Password.oldPassword" />
                         </div>
+                    </c:if>
 
-                        <div class="mb-3">
-                            <label class="form-label">
-                                <spring:message code="changePassword.newPassword.label" />
-                            </label>
-                            <input type="password" name="newPassword" class="form-control" required />
+                    <div class="mb-3">
+                        <label class="form-label">
+                            <spring:message code="changePassword.oldPassword.label" />
+                        </label>
+                        <input type="password" name="oldPassword" class="form-control" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">
+                            <spring:message code="changePassword.newPassword.label" />
+                        </label>
+                        <input type="password" name="newPassword" class="form-control" required />
+                    </div>
+
+                    <c:if test="${confirmedNewPasswordError}">
+                        <div class="alert alert-danger" role="alert">
+                            <spring:message code="Password.mismatch"/>
                         </div>
+                    </c:if>
 
-                        <c:if test="${confirmedNewPasswordError}">
-                            <div class="alert alert-danger" role="alert">
-                                <spring:message code="Password.mismatch"/>
-                            </div>
-                        </c:if>
+                    <div class="mb-3">
+                        <label class="form-label">
+                            <spring:message code="changePassword.confirmPassword.label"/>
+                        </label>
+                        <input type="password" name="confirmedNewPassword" class="form-control" required />
+                    </div>
 
-                        <div class="mb-3">
-                            <label class="form-label">
-                                <spring:message code="changePassword.confirmPassword.label"/>
-                            </label>
-                            <input type="password" name="confirmedNewPassword" class="form-control" required />
-                        </div>
-
-                        <div class="d-grid">
-                            <form:button cssClass="btn btn-primary">
-                                <spring:message code="changePassword.submit"/>
-                            </form:button>
-                        </div>
-                    </form:form>
-                </div>
+                    <button type="submit" class="btn btn-primary w-100"> <spring:message code="changePassword.submit"/> </button>
+                </form:form>
             </div>
         </div>
     </div>
