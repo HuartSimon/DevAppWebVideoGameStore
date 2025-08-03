@@ -15,7 +15,14 @@ public class CategoryEntity {
     @OneToMany(mappedBy = "category")
     private List<DiscountEntity> discounts;
 
-    public CategoryEntity(){}
+    public CategoryEntity(){
+
+    }
+
+    public CategoryEntity(Integer id, List<DiscountEntity> discounts) {
+        setDiscounts(discounts);
+        setId(id);
+    }
 
     public Integer getId() { return id; }
     public List<DiscountEntity> getDiscounts() {

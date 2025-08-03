@@ -8,7 +8,9 @@ import com.spring.henallux.springProject.model.Category;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.runner.RunWith;
 import org.mockito.*;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 import java.util.ArrayList;
@@ -17,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
+@RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
 class CategoryDBAccessTest {
 
@@ -26,56 +28,48 @@ class CategoryDBAccessTest {
     @Mock
     private CategoryRepository categoryRepository;
 
-    @Mock
-    private ProviderConverter providerConverter;
-
     @BeforeEach
     void setUp() {
-        categoryDBAccess = new CategoryDBAccess(categoryRepository, providerConverter);
+        categoryDBAccess = new CategoryDBAccess(categoryRepository, new ProviderConverter());
     }
 
     @Test
     public void findById_shouldReturnConvertedCategory() {
         // Arrange
         int categoryId = 1;
-        CategoryEntity mockEntity = new CategoryEntity();
-        Category mockCategory = new Category();
+        CategoryEntity mockedCategoryEntity = new CategoryEntity(categoryId, new ArrayList<>());
+        Category expectedCategory = new Category(categoryId, new ArrayList<>());
 
-        when(categoryRepository.findById(categoryId)).thenReturn(mockEntity);
-        when(providerConverter.categoryEntityToCategoryModel(mockEntity)).thenReturn(mockCategory);
+        when(categoryRepository.findById(categoryId)).thenReturn(mockedCategoryEntity);
 
         // Act
         Category result = categoryDBAccess.findById(categoryId);
 
         // Assert
-        assertNotNull(result);
-        assertThat(result).isEqualTo(mockCategory);
+        assertThat(result).usingRecursiveComparison().isEqualTo(expectedCategory);
     }
 
     @Test
     void findAll_shouldReturnListOfConvertedCategories() {
         // Arrange
-        CategoryEntity entity1 = new CategoryEntity();
-        CategoryEntity entity2 = new CategoryEntity();
-        ArrayList<CategoryEntity> mockEntities = new ArrayList<>();
-        mockEntities.add(entity1);
-        mockEntities.add(entity2);
+        CategoryEntity entity1 = new CategoryEntity(1, new ArrayList<>());
+        CategoryEntity entity2 = new CategoryEntity(2, new ArrayList<>());
+        ArrayList<CategoryEntity> mockedEntities = new ArrayList<>();
+        mockedEntities.add(entity1);
+        mockedEntities.add(entity2);
 
-        Category category1 = new Category(1);
-        Category category2 = new Category(2);
+        Category category1 = new Category(1, new ArrayList<>());
+        Category category2 = new Category(2, new ArrayList<>());
         ArrayList<Category> expectedCategories = new ArrayList<>();
         expectedCategories.add(category1);
         expectedCategories.add(category2);
 
-
-        when(categoryRepository.findAll()).thenReturn(mockEntities);
-        when(providerConverter.categoryEntityToCategoryModel(entity1)).thenReturn(category1);
-        when(providerConverter.categoryEntityToCategoryModel(entity2)).thenReturn(category2);
+        when(categoryRepository.findAll()).thenReturn(mockedEntities);
 
         // Act
         List<Category> result = categoryDBAccess.findAll();
 
         // Assert
-        assertThat(result).isEqualTo(expectedCategories);
+        assertThat(result).usingRecursiveComparison().isEqualTo(expectedCategories);
     }
 }

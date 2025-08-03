@@ -20,6 +20,10 @@ public class Order {
         setOrderDate(LocalDate.now());
     }
 
+    public Order(User user, List<OrderLine> orderLines) {
+        setUser(user);
+        setOrderLines(orderLines);
+    }
 
     public void setId(Integer id) {
         this.id = id;

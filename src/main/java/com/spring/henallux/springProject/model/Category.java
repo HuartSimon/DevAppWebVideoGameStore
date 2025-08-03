@@ -10,7 +10,8 @@ public class Category {
 
     public Category(){
     }
-    public Category(Integer id) {
+    public Category(Integer id, List<Discount> discounts) {
+        setDiscounts(discounts);
         setId(id);
     }
 

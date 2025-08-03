@@ -66,6 +66,10 @@ public class UserEntity {
         setEnabled(enabled);
     }
 
+    public UserEntity(String username, String firstName, String lastName, String email, String address, String password, String phoneNumber, Boolean isMan) {
+        this(username, firstName, lastName, email, address, password, phoneNumber, isMan, "ROLE_USER", true, true, true, true);
+    }
+
     public String getUsername() {
         return username;
     }

@@ -27,6 +27,15 @@ public class OrderEntity {
 
     public OrderEntity() {}
 
+    public OrderEntity(UserEntity user) {
+        setUser(user);
+    }
+
+    public OrderEntity(UserEntity user, List<OrderLineEntity> orderLines) {
+        setUser(user);
+        setOrderLines(orderLines);
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }
