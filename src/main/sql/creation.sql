@@ -59,23 +59,24 @@ CREATE TABLE product (
     id                          INTEGER         PRIMARY KEY     AUTO_INCREMENT,
     name                        VARCHAR(50)     NOT NULL,
     description                 VARCHAR(250)    NOT NULL,
-    price                       DOUBLE          NOT NULL,
+    price                       DOUBLE          NOT NULL        CHECK (price >= 0),
     category                    INTEGER         REFERENCES category(id)
 );
 
 CREATE TABLE discount (
     id                          INTEGER         PRIMARY KEY     AUTO_INCREMENT,
-    discount_val                DOUBLE          NOT NULL,
+    discount_val                DOUBLE          NOT NULL        CHECK (discount_val >= 0 AND discount_val <= 1),
     begin_date                  DATETIME        NOT NULL,
     end_date                    DATETIME        NOT NULL,
-    category                    INTEGER         REFERENCES category(id)
+    category                    INTEGER         REFERENCES category(id),
+    CHECK (begin_date <= end_date)
 );
 
 CREATE TABLE order_line (
     id                          INTEGER         PRIMARY KEY     AUTO_INCREMENT,
-    quantity                    INTEGER         NOT NULL,
-    price                       DOUBLE          NOT NULL,
-    discount                    DOUBLE,
-    `order`                     INTEGER         NOT NULL    REFERENCES `order`(id),
-    product                     INTEGER         NOT NULL    REFERENCES product(id)
+    quantity                    INTEGER         NOT NULL        CHECK (quantity > 0),
+    price                       DOUBLE          NOT NULL        CHECK (price >= 0),
+    discount                    DOUBLE                          CHECK (discount >= 0 AND discount <= 1),
+    `order`                     INTEGER         NOT NULL        REFERENCES `order`(id),
+    product                     INTEGER         NOT NULL        REFERENCES product(id)
 )

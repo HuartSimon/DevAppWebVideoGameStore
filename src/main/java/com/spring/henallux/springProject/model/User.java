@@ -27,8 +27,7 @@ public class User implements UserDetails {
     private String password;
     @NotEmpty
     @Size(max = 15)
-    @Pattern(regexp = "^\\+?[0-9 ]{1,15}$",
-            message = "! Invalid phone number format. The phone number must start with an optional '+' for international numbers, contain only digits and spaces, and be between 1 and 15 characters long.")
+    @Pattern(regexp = "^\\+?[0-9 ]{1,15}$")
     private String phoneNumber;
     private Boolean isMan;
     @Size(max = 200)
@@ -86,9 +85,6 @@ public class User implements UserDetails {
     public String getUsername() {
         return username;
     }
-
-    // x != null ? x : false (Car on implemente UserDetails qui a des méthodes boolean (type primitif qui ne peut être null)
-    // Donc si null -> renvoyer false
     @Override
     public boolean isAccountNonExpired() {
         return accountNonExpired != null ? accountNonExpired : false;

@@ -48,10 +48,11 @@
                     <div>
                         <strong>${orderLine.quantity}x</strong>
                         ${orderLine.product.name}
-                        at <strong>${orderLine.price}$</strong><br>
+
+                        <spring:message code="orderDetails.at"/> <strong>${orderLine.price}$</strong><br>
                         <small class="text-muted">
-                            Discount: ${orderLine.discount * 100}%
-                            → Total:
+                            <spring:message code="orderDetails.discount"/>: ${orderLine.discount * 100}%
+                            → <spring:message code="orderDetails.total"/>:
                             <fmt:formatNumber value="${(orderLine.getFinalPrice())}" type="number" minFractionDigits="2" maxFractionDigits="2" />$
                         </small>
                     </div>

@@ -15,6 +15,7 @@
     </head>
     <body class="d-flex flex-column vh-100">
 
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-2">
             <a class="navbar-brand" href="<spring:url value='/home'/>"><spring:message code="template.brand" /></a>
 
@@ -33,7 +34,9 @@
                     <sec:authorize access="isAuthenticated()">
                         <li class="nav-item">
                             <span class="navbar-text text-white me-2">
-                                Welcome ${pageContext.request.userPrincipal.principal.username} !
+                                <spring:message code="template.message">
+                                    <spring:argument value="${pageContext.request.userPrincipal.principal.username}" />
+                                </spring:message>
                             </span>
                         </li>
                         <li class="nav-item"><a class="nav-link" href="<spring:url value='/logout'/>"><spring:message code="template.logout"/></a></li>
@@ -68,8 +71,6 @@
         <footer class="bg-dark text-white text-center py-3 mt-auto">
             <p class="mb-0"><spring:message code="template.text" /></p>
         </footer>
-
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 
     </body>
 </html>

@@ -11,41 +11,49 @@
                     <div class="mb-3">
                         <form:label path="username" cssClass="form-label"><spring:message code="signup.username" /></form:label>
                         <form:input path="username" cssClass="form-control"/>
+                        <form:errors path="username" cssClass="text-danger"/>
                     </div>
 
                     <div class="mb-3">
                         <form:label path="password" cssClass="form-label"><spring:message code="signup.password" /></form:label>
                         <form:password path="password" cssClass="form-control"/>
+                        <form:errors path="password" cssClass="text-danger"/>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label"><spring:message code="signup.confirmPassword" /></label>
                         <input type="password" id="confirmedPassword" name="confirmedPassword" class="form-control"/>
+                        <form:errors path="password" cssClass="text-danger"/>
                     </div>
 
                     <div class="mb-3">
                         <form:label path="firstName" cssClass="form-label"><spring:message code="signup.firstName" /></form:label>
                         <form:input path="firstName" cssClass="form-control"/>
+                        <form:errors path="firstName" cssClass="text-danger"/>
                     </div>
 
                     <div class="mb-3">
                         <form:label path="lastName" cssClass="form-label"><spring:message code="signup.lastName" /></form:label>
                         <form:input path="lastName" cssClass="form-control"/>
+                        <form:errors path="lastName" cssClass="text-danger"/>
                     </div>
 
                     <div class="mb-3">
                         <form:label path="email" cssClass="form-label"><spring:message code="signup.email" /></form:label>
                         <form:input path="email" cssClass="form-control"/>
+                        <form:errors path="email" cssClass="text-danger"/>
                     </div>
 
                     <div class="mb-3">
                         <form:label path="address" cssClass="form-label"><spring:message code="signup.address" /></form:label>
                         <form:input path="address" cssClass="form-control"/>
+                        <form:errors path="address" cssClass="text-danger"/>
                     </div>
 
                     <div class="mb-3">
                         <form:label path="phoneNumber" cssClass="form-label"><spring:message code="signup.phoneNumber" /></form:label>
                         <form:input path="phoneNumber" cssClass="form-control"/>
+                        <form:errors path="phoneNumber" cssClass="text-danger"/>
                     </div>
 
                     <div class="mb-3">
@@ -71,19 +79,8 @@
                                 <spring:message code="editAccount.gender.notSpecified" />
                             </label>
                         </div>
+                        <form:errors path="isMan" cssClass="text-danger"/>
                     </div>
-
-                    <c:if test="${not empty validationErrors}">
-                        <div class="alert alert-danger">
-                            <p><strong><spring:message code="general.errorsTitle"/></strong></p>
-                            <ul>
-                                <c:forEach items="${validationErrors}" var="error">
-                                    <li>${error}</li>
-                                </c:forEach>
-                            </ul>
-                        </div>
-                    </c:if>
-
                     <button type="submit" class="btn btn-primary w-100"> <spring:message code="signup.submit" /> </button>
                 </form:form>
             </div>

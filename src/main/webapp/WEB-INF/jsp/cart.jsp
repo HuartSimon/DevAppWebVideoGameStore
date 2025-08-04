@@ -71,9 +71,32 @@
             <fmt:formatNumber value="${currentCart.getTotalPrice()}" type="number" minFractionDigits="2" maxFractionDigits="2" />$
         </span></p>
 
-        <form:form method="post" modelAttribute="currentCart" cssClass="mt-3">
-            <button type="submit" class="btn btn-outline-primary"><spring:message code="cart.orderButton" /></button>
-        </form:form>
+        <!-- Modal -->
+        <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header d-flex justify-content-center">
+                        <h5 class="modal-title text-center" id="modalLabel">
+                            <spring:message code="cart.orderConfirmation.title" />
+                        </h5>
+                    </div>
+                    <div class="modal-body d-flex justify-content-center gap-2">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                            <spring:message code="cart.orderConfirmation.cancelButton" />
+                        </button>
+                        <form:form method="post" modelAttribute="currentCart" cssClass="">
+                            <button type="submit" class="btn btn-outline-primary">
+                                <spring:message code="cart.orderConfirmation.confirmButton" />
+                            </button>
+                        </form:form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modal">
+            <spring:message code="cart.orderButton" />
+        </button>
+
     </c:otherwise>
 </c:choose>
-

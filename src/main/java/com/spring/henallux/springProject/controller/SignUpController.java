@@ -8,16 +8,25 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import com.spring.henallux.springProject.Constants;
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.Locale;
 
+import org.springframework.context.MessageSource;
+
+
+@SuppressWarnings("ALL")
 @Controller
 @RequestMapping(value = "/signUp")
 public class SignUpController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private MessageSource messageSource;
 
     @Autowired
     private PasswordEncoder encoder;
@@ -27,38 +36,30 @@ public class SignUpController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String signupForm(Model model) {
-        model.addAttribute("user", new User());
         return "integrated:signUp";
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String submitSignup(@RequestParam("confirmedPassword") String confirmedPassword, Model model, @Valid @ModelAttribute(value = Constants.CURRENT_USER) User user, BindingResult errors) {
+    public String submitSignup(@RequestParam("confirmedPassword") String confirmedPassword, Model model, Locale locale, @Valid @ModelAttribute(value = Constants.CURRENT_USER) User user, BindingResult errors) {
+
         if (userService.isUsernameAlreadyTaken(user.getUsername())) {
-            model.addAttribute("usernameError", true);
-            return "integrated:signUp";
+            errors.rejectValue("username", "Username.Error.Unique");
         }
         if (userService.isEmailAlreadyTaken(user.getEmail())) {
-            model.addAttribute("emailError", true);
-            return "integrated:signUp";
+            errors.rejectValue("email", "Email.Error.Unique");
         }
         if(!(user.getPassword().equals(confirmedPassword))) {
-            model.addAttribute("passwordError", true);
+            errors.rejectValue("password", "Password.Error");
+        }
+        if(errors.hasErrors()) {
             return "integrated:signUp";
         }
-        if (errors.hasErrors()) {
-            ArrayList<String> validationErrors = new ArrayList<>();
-            for (FieldError error : errors.getFieldErrors()) {
-                validationErrors.add(error.getField() + ": " + error.getDefaultMessage());
-            }
-            model.addAttribute("validationErrors", validationErrors);
-            return "integrated:signUp";
-        }
+
         user.setAuthorities("ROLE_USER");
         user.setAccountNonExpired(true);
         user.setEnabled(true);
         user.setCredentialsNonExpired(true);
         user.setAccountNonLocked(true);
-
         user.setPassword(encoder.encode(user.getPassword()));
 
         userService.saveUser(user);

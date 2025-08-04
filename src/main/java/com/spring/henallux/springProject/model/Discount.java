@@ -45,6 +45,7 @@ public class Discount {
         this.endDate = endDate;
     }
 
+
     @Override
     public String toString() {
         return "Discount{" +
