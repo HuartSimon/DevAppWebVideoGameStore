@@ -5,41 +5,52 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 public class User implements UserDetails {
-    @NotNull
+    @NotEmpty
+    @Size(min = 1, max = 50)
     private String username;
-    @NotNull
-    private String firstName;
-    @NotNull
-    private String lastName;
-    @NotNull
+
+    @NotEmpty
     @Email
     private String email;
-    @NotNull
+
+    @NotEmpty
+    @Size(min = 1, max = 50)
+    private String firstName;
+
+    @NotEmpty
+    @Size(min = 1, max = 50)
+    private String lastName;
+
+    @NotEmpty
+    @Size(max = 100)
     private String address;
-    @NotNull
-    private String password;
-    @NotNull
+
+    @NotEmpty
+    @Pattern(regexp = "^\\+?[0-9 ]{1,15}$")
     private String phoneNumber;
+
     private Boolean isMan;
-    @NotNull
+
+    @NotEmpty
+    private String password;
+
+    @Size(max = 200)
     private String authorities;
-    @NotNull
     private Boolean accountNonExpired;
-    @NotNull
     private Boolean accountNonLocked;
-    @NotNull
     private Boolean credentialsNonExpired;
-    @NotNull
     private Boolean enabled;
 
-    public User() {}
 
+    public User() {}
     public User(String username, String firstName, String lastName, String email, String address, String password, String phoneNumber, Boolean isMan, String authorities, Boolean accountNonExpired, Boolean accountNonLocked, Boolean credentialsNonExpired, Boolean enabled) {
         setUsername(username);
         setFirstName(firstName);
@@ -48,15 +59,32 @@ public class User implements UserDetails {
         setAddress(address);
         setPassword(password);
         setPhoneNumber(phoneNumber);
-        setMan(isMan);
+        setIsMan(isMan);
         setAuthorities(authorities);
         setAccountNonExpired(accountNonExpired);
         setAccountNonLocked(accountNonLocked);
         setCredentialsNonExpired(credentialsNonExpired);
         setEnabled(enabled);
     }
+    public User(String username, String firstName, String lastName, String email, String address, String password, String phoneNumber, Boolean isMan) {
+        this(username, firstName, lastName, email, address, password, phoneNumber, isMan, "ROLE_USER", true, true, true, true);
+    }
 
-    @Override
+    public User(CreateUserForm createUserForm, String encodedPassword) {
+        this(
+                createUserForm.getUsername(),
+                createUserForm.getFirstName(),
+                createUserForm.getLastName(),
+                createUserForm.getEmail(),
+                createUserForm.getAddress(),
+                encodedPassword,
+                createUserForm.getPhoneNumber(),
+                createUserForm.getIsMan().isEmpty() ? null : Boolean.parseBoolean(createUserForm.getIsMan())
+        );
+    }
+
+
+        @Override
     public Collection<GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
 
@@ -73,109 +101,115 @@ public class User implements UserDetails {
         return grantedAuthorities;
     }
 
+
     @Override
     public String getPassword() {
         return password;
     }
-
     @Override
     public String getUsername() {
         return username;
     }
-
     @Override
     public boolean isAccountNonExpired() {
-        return accountNonExpired;
+        return accountNonExpired != null ? accountNonExpired : false;
     }
-
     @Override
     public boolean isAccountNonLocked() {
-        return accountNonLocked;
+        return accountNonLocked != null ? accountNonLocked : false;
     }
-
     @Override
-    public boolean isCredentialsNonExpired() {
-        return credentialsNonExpired;
-    }
-
+    public boolean isCredentialsNonExpired() {return credentialsNonExpired != null ? credentialsNonExpired : false;}
     @Override
     public boolean isEnabled() {
-        return enabled;
+        return enabled != null ? enabled : false;
     }
+
 
     public String getFirstName() {
         return firstName;
     }
-
     public String getLastName() {
         return lastName;
     }
-
     public String getEmail() {
         return email;
     }
-
     public String getAddress() {
         return address;
     }
-
     public String getPhoneNumber() {
         return phoneNumber;
     }
-
-    public Boolean getMan() {
+    public Boolean getIsMan() {
         return isMan;
     }
+
 
     public void setUsername(String username) {
         this.username = username;
     }
-
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }
-
     public void setAddress(String address) {
         this.address = address;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
-
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-
-    public void setMan(Boolean man) {
+    public void setIsMan(Boolean man) {
         isMan = man;
     }
-
     public void setAuthorities(String authorities) {
         this.authorities = authorities;
     }
-
     public void setAccountNonExpired(Boolean accountNonExpired) {
         this.accountNonExpired = accountNonExpired;
     }
-
     public void setAccountNonLocked(Boolean accountNonLocked) {
         this.accountNonLocked = accountNonLocked;
     }
-
     public void setCredentialsNonExpired(Boolean credentialsNonExpired) {
         this.credentialsNonExpired = credentialsNonExpired;
     }
-
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public void update(EditUserForm editUserForm){
+        setFirstName(editUserForm.getFirstName());
+        setLastName(editUserForm.getLastName());
+        setAddress(editUserForm.getAddress());
+        setPhoneNumber(editUserForm.getPhoneNumber());
+        setIsMan(editUserForm.getIsMan().isEmpty() ? null : Boolean.parseBoolean(editUserForm.getIsMan()));
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
+                ", password='" + password + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", isMan=" + isMan +
+                ", authorities='" + authorities + '\'' +
+                ", accountNonExpired=" + accountNonExpired +
+                ", accountNonLocked=" + accountNonLocked +
+                ", credentialsNonExpired=" + credentialsNonExpired +
+                ", enabled=" + enabled +
+                '}';
     }
 }

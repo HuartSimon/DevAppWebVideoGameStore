@@ -1,5 +1,6 @@
 package com.spring.henallux.springProject.configuration;
 
+import com.spring.henallux.springProject.dataAccess.util.CustomLoginSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -15,7 +16,9 @@ import org.springframework.security.web.authentication.SavedRequestAwareAuthenti
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     public static final String LOGIN_REQUEST = "/login";
-    public static final String[] AUTHORIZED_REQUESTS_ANYBODY = new String[]{"/home", "/css/**", "/images/**"};
+    public static final String[] AUTHORIZED_REQUESTS_ANYBODY = new String[]{
+            "/home", "/signUp", "/company", "/products/**", "/product/**", "/cart/**", "/css/**", "/images/**", "/categories"
+    };
     public static final String[] AUTHORIZED_REQUESTS_ADMIN = new String[]{"/admin"};
 
     private UserDetailsService userDetailsServiceImpl;
@@ -43,10 +46,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
             .anyRequest().authenticated() // For all the other requests, the user needs to be authenticated
 
             .and()
-            .formLogin() // We define the login part here.
-            .successHandler(successHandler) // provided by spring to redirect to the last request or the default redirect
-            .loginPage(LOGIN_REQUEST) // We specify a login page. Otherwise spring creates one by default
-            .failureUrl(LOGIN_REQUEST + "?error=true") // to display an error in case of failure
+                .formLogin() // We define the login part here.
+                    .successHandler(successHandler) // provided by spring to redirect to the last request or the default redirect
+                    .loginPage(LOGIN_REQUEST) // We specify a login page. Otherwise spring creates one by default
+                    .successHandler(new CustomLoginSuccessHandler()) // To add authenticatedUser (made by spring security) to CURRENT_USER
+                    .failureUrl(LOGIN_REQUEST + "?error=true") // to display an error in case of failure
             .permitAll() // To make the login page the available for any user
 
             .and()
