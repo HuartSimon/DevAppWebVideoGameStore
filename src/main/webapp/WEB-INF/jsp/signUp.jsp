@@ -74,7 +74,7 @@
                             </label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <form:radiobutton path="isMan" cssClass="form-check-input" id="notSpecifiedRadio" value="" />
+                            <form:radiobutton path="isMan" cssClass="form-check-input" id="notSpecifiedRadio" value=""/>
                             <label class="form-check-label" for="notSpecifiedRadio">
                                 <spring:message code="editAccount.gender.notSpecified" />
                             </label>

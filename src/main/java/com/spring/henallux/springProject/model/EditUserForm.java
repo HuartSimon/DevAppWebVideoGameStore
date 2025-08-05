@@ -14,7 +14,7 @@ public class EditUserForm {
         setLastName(user.getLastName());
         setAddress(user.getAddress());
         setPhoneNumber(user.getPhoneNumber());
-        setIsMan(user.getIsMan());
+        setIsMan(user.getIsMan() == null ? "" : user.getIsMan().toString());
     }
 
     @NotEmpty
@@ -32,7 +32,7 @@ public class EditUserForm {
     @NotEmpty
     @Pattern(regexp = "^\\+?[0-9 ]{1,15}$")
     private String phoneNumber;
-    private Boolean isMan;
+    private String isMan;
 
     public String getFirstName() {
         return firstName;
@@ -46,7 +46,7 @@ public class EditUserForm {
     public String getPhoneNumber() {
         return phoneNumber;
     }
-    public Boolean getIsMan() {
+    public String getIsMan() {
         return isMan;
     }
 
@@ -61,7 +61,7 @@ public class EditUserForm {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-    public void setIsMan(Boolean man) {
+    public void setIsMan(String man) {
         isMan = man;
     }
 }

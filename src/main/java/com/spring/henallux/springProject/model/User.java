@@ -68,7 +68,16 @@ public class User implements UserDetails {
     }
 
     public User(CreateUserForm createUserForm, String encodedPassword) {
-        this(createUserForm.getUsername(), createUserForm.getFirstName(), createUserForm.getLastName(), createUserForm.getEmail(), createUserForm.getAddress(), encodedPassword, createUserForm.getPhoneNumber(), createUserForm.getIsMan());
+        this(
+                createUserForm.getUsername(),
+                createUserForm.getFirstName(),
+                createUserForm.getLastName(),
+                createUserForm.getEmail(),
+                createUserForm.getAddress(),
+                encodedPassword,
+                createUserForm.getPhoneNumber(),
+                createUserForm.getIsMan().isEmpty() ? null : Boolean.parseBoolean(createUserForm.getIsMan())
+        );
     }
 
 
@@ -179,7 +188,7 @@ public class User implements UserDetails {
         setLastName(editUserForm.getLastName());
         setAddress(editUserForm.getAddress());
         setPhoneNumber(editUserForm.getPhoneNumber());
-        setIsMan(editUserForm.getIsMan());
+        setIsMan(editUserForm.getIsMan().isEmpty() ? null : Boolean.parseBoolean(editUserForm.getIsMan()));
     }
 
     @Override

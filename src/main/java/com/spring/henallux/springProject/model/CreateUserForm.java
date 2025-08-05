@@ -7,7 +7,9 @@ import javax.validation.constraints.Size;
 
 public class CreateUserForm {
 
-    public CreateUserForm() {}
+    public CreateUserForm() {
+        setIsMan("");
+    }
 
     @NotEmpty
     @Size(min = 1, max = 50)
@@ -33,7 +35,7 @@ public class CreateUserForm {
     @Pattern(regexp = "^\\+?[0-9 ]{1,15}$")
     private String phoneNumber;
 
-    private Boolean isMan;
+    private String isMan;
 
     @NotEmpty
     private String password;
@@ -53,7 +55,7 @@ public class CreateUserForm {
     public String getPhoneNumber() {
         return phoneNumber;
     }
-    public Boolean getIsMan() {
+    public String getIsMan() {
         return isMan;
     }
 
@@ -85,7 +87,7 @@ public class CreateUserForm {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-    public void setIsMan(Boolean man) {
+    public void setIsMan(String man) {
         isMan = man;
     }
 
