@@ -1,0 +1,9 @@
+server:
+  port: 3002
+  servlet:
+    contextPath: /spring
+spring:
+  datasource:
+    password: bidondon
+    url: jdbc:mysql://localhost:5432/video_game_store?user=root
+    driver-class-name: com.mysql.cj.jdbc.Driver
