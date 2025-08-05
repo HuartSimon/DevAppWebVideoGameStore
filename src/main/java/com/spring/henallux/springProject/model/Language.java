@@ -1,7 +1,5 @@
 package com.spring.henallux.springProject.model;
 
-import javax.validation.constraints.NotNull;
-
 public class Language {
     private String label;
 

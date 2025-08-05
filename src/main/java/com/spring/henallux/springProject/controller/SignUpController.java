@@ -1,22 +1,19 @@
 package com.spring.henallux.springProject.controller;
 
+import com.spring.henallux.springProject.Constants;
 import com.spring.henallux.springProject.model.CreateUserForm;
 import com.spring.henallux.springProject.model.User;
 import com.spring.henallux.springProject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
-import com.spring.henallux.springProject.Constants;
-import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.Locale;
 
-import org.springframework.context.MessageSource;
+import javax.validation.Valid;
+import java.util.Locale;
 
 
 @SuppressWarnings("ALL")

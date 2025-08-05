@@ -1,7 +1,6 @@
 package com.spring.henallux.springProject.dataAccess.util;
 
 import com.spring.henallux.springProject.dataAccess.entity.*;
-import com.spring.henallux.springProject.dataAccess.entity.LanguageEntity;
 import com.spring.henallux.springProject.model.*;
 import org.dozer.DozerBeanMapper;
 import org.springframework.security.core.GrantedAuthority;
@@ -82,7 +81,6 @@ public class ProviderConverter {
     }
 
     public OrderLineEntity orderLineModelToOrderLineEntity(OrderLine orderLine, OrderEntity orderEntity) {
-        System.out.println("hjgjhgjhjhghjh" + orderLine);
         OrderLineEntity orderLineEntity = new OrderLineEntity();
         orderLineEntity.setId(orderLine.getId());
         orderLineEntity.setDiscount(orderLine.getDiscount());

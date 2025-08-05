@@ -3,14 +3,16 @@ package com.spring.henallux.springProject.dataAccess.dao;
 import com.spring.henallux.springProject.dataAccess.entity.OrderEntity;
 import com.spring.henallux.springProject.dataAccess.entity.UserEntity;
 import com.spring.henallux.springProject.dataAccess.repository.OrderRepository;
-import com.spring.henallux.springProject.dataAccess.util.ProviderConverter;;
+import com.spring.henallux.springProject.dataAccess.util.ProviderConverter;
+import com.spring.henallux.springProject.model.Order;
 import com.spring.henallux.springProject.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.spring.henallux.springProject.model.Order;
 
 import java.util.ArrayList;
 import java.util.List;
+
+;
 
 
 @Service

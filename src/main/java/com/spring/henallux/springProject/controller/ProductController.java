@@ -1,8 +1,12 @@
 package com.spring.henallux.springProject.controller;
 
 import com.spring.henallux.springProject.Constants;
-import com.spring.henallux.springProject.model.*;
-import com.spring.henallux.springProject.service.*;
+import com.spring.henallux.springProject.model.Cart;
+import com.spring.henallux.springProject.model.NewOrderLineForm;
+import com.spring.henallux.springProject.model.Product;
+import com.spring.henallux.springProject.model.Translation;
+import com.spring.henallux.springProject.service.ProductService;
+import com.spring.henallux.springProject.service.TranslationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.*;
+import java.util.Locale;
 
 @Controller
 @RequestMapping("/product")

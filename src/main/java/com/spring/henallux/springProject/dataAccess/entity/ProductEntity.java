@@ -1,7 +1,5 @@
 package com.spring.henallux.springProject.dataAccess.entity;
 
-import com.spring.henallux.springProject.model.Category;
-
 import javax.persistence.*;
 
 @Entity

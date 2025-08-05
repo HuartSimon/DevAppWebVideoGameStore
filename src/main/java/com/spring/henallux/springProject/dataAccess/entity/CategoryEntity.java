@@ -1,7 +1,7 @@
 package com.spring.henallux.springProject.dataAccess.entity;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.List;
 
 @Entity
 @Table(name="category")

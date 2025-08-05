@@ -1,7 +1,7 @@
 package com.spring.henallux.springProject.model;
 
-import java.util.List;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Category {
     private Integer id;
@@ -21,8 +21,7 @@ public class Category {
                 LocalDateTime.now().isAfter(dis.getBeginDate()) &&
                 LocalDateTime.now().isBefore(dis.getEndDate()))
             .findFirst();
-        System.out.println(discount);
-        
+
         return discount.isPresent() ? discount.get().getDiscountVal() : null;
     }
     public List<Discount> getDiscounts() { return discounts; }

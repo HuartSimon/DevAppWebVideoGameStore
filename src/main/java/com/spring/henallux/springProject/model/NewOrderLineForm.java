@@ -1,7 +1,6 @@
 package com.spring.henallux.springProject.model;
 
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 public class NewOrderLineForm {

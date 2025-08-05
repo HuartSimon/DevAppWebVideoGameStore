@@ -2,8 +2,6 @@ package com.spring.henallux.springProject.dataAccess.entity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 
 @Entity
 @Table(name="discount")
