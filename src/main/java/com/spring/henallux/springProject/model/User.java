@@ -10,26 +10,35 @@ import java.util.Collection;
 import java.util.List;
 
 public class User implements UserDetails {
+    @NotEmpty
     @Size(min = 1, max = 50)
     private String username;
-    @Size(min = 1, max = 50)
-    private String firstName;
-    @Size(min = 1, max = 50)
-    private String lastName;
+
     @NotEmpty
-    @Size(max = 50)
     @Email
     private String email;
+
+    @NotEmpty
+    @Size(min = 1, max = 50)
+    private String firstName;
+
+    @NotEmpty
+    @Size(min = 1, max = 50)
+    private String lastName;
+
+    @NotEmpty
     @Size(max = 100)
-    @NotEmpty
     private String address;
+
     @NotEmpty
-    private String password;
-    @NotEmpty
-    @Size(max = 15)
     @Pattern(regexp = "^\\+?[0-9 ]{1,15}$")
     private String phoneNumber;
+
     private Boolean isMan;
+
+    @NotEmpty
+    private String password;
+
     @Size(max = 200)
     private String authorities;
     private Boolean accountNonExpired;
@@ -56,6 +65,10 @@ public class User implements UserDetails {
     }
     public User(String username, String firstName, String lastName, String email, String address, String password, String phoneNumber, Boolean isMan) {
         this(username, firstName, lastName, email, address, password, phoneNumber, isMan, "ROLE_USER", true, true, true, true);
+    }
+
+    public User(CreateUserForm createUserForm, String encodedPassword) {
+        this(createUserForm.getUsername(), createUserForm.getFirstName(), createUserForm.getLastName(), createUserForm.getEmail(), createUserForm.getAddress(), encodedPassword, createUserForm.getPhoneNumber(), createUserForm.getIsMan());
     }
 
 

@@ -9,7 +9,7 @@
                     <spring:message code="editAccount.title" />
                 </h1>
 
-                <form:form method="post" modelAttribute="editUserForm">
+                <form:form method="post" modelAttribute="userForm">
 
                     <div class="mb-3 d-flex justify-content-between align-items-center">
                         <label class="form-label m-0">
@@ -24,7 +24,8 @@
                         <form:label path="firstName" cssClass="form-label">
                             <spring:message code="editAccount.firstNameLabel" />
                         </form:label>
-                        <form:input path="firstName" cssClass="form-control" />
+                        <form:input path="firstName" cssClass="form-control"/>
+                        <form:errors path="firstName" cssClass="text-danger"/>
                     </div>
 
                     <div class="mb-3">
@@ -32,6 +33,7 @@
                             <spring:message code="editAccount.lastNameLabel" />
                         </form:label>
                         <form:input path="lastName" cssClass="form-control" />
+                        <form:errors path="lastName" cssClass="text-danger"/>
                     </div>
 
                     <div class="mb-3">
@@ -39,6 +41,7 @@
                             <spring:message code="editAccount.addressLabel" />
                         </form:label>
                         <form:input path="address" cssClass="form-control" />
+                        <form:errors path="address" cssClass="text-danger"/>
                     </div>
 
                     <div class="mb-3">
@@ -46,6 +49,7 @@
                             <spring:message code="editAccount.phoneNumberLabel" />
                         </form:label>
                         <form:input path="phoneNumber" cssClass="form-control" />
+                        <form:errors path="phoneNumber" cssClass="text-danger"/>
                     </div>
 
                     <div class="mb-3">
@@ -70,18 +74,8 @@
                                 <spring:message code="editAccount.gender.notSpecified" />
                             </label>
                         </div>
+                        <form:errors path="isMan" cssClass="text-danger"/>
                     </div>
-
-                    <c:if test="${not empty validationErrors}">
-                        <div class="alert alert-danger">
-                            <ul class="mb-0">
-                                <c:forEach items="${validationErrors}" var="error">
-                                    <li>${error}</li>
-                                </c:forEach>
-                            </ul>
-                        </div>
-                    </c:if>
-
                     <button class="btn btn-primary w-100"> <spring:message code="editAccount.submit" /> </button>
                 </form:form>
             </div>

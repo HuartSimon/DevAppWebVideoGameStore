@@ -7,7 +7,7 @@
             <div class="card-body">
                 <h1 class="text-center mb-4"><spring:message code="signup.title"/></h1>
 
-                <form:form method="post" modelAttribute="currentUser">
+                <form:form method="post" modelAttribute="userForm">
                     <div class="mb-3">
                         <form:label path="username" cssClass="form-label"><spring:message code="signup.username" /></form:label>
                         <form:input path="username" cssClass="form-control"/>
@@ -22,7 +22,7 @@
 
                     <div class="mb-3">
                         <label class="form-label"><spring:message code="signup.confirmPassword" /></label>
-                        <input type="password" id="confirmedPassword" name="confirmedPassword" class="form-control"/>
+                        <input type="password" id="confirmPassword" name="confirmPassword" class="form-control"/>
                         <form:errors path="password" cssClass="text-danger"/>
                     </div>
 

@@ -10,12 +10,6 @@
                 </h1>
 
                 <form:form method="post" modelAttribute="currentUser">
-                    <c:if test="${oldPasswordError}">
-                        <div class="alert alert-danger" role="alert">
-                            <spring:message code="Password.oldPassword" />
-                        </div>
-                    </c:if>
-
                     <div class="mb-3">
                         <label class="form-label">
                             <spring:message code="changePassword.oldPassword.label" />
@@ -30,18 +24,23 @@
                         <input type="password" name="newPassword" class="form-control" required />
                     </div>
 
-                    <c:if test="${confirmedNewPasswordError}">
-                        <div class="alert alert-danger" role="alert">
-                            <spring:message code="Password.mismatch"/>
-                        </div>
-                    </c:if>
-
                     <div class="mb-3">
                         <label class="form-label">
                             <spring:message code="changePassword.confirmPassword.label"/>
                         </label>
                         <input type="password" name="confirmedNewPassword" class="form-control" required />
                     </div>
+
+                    <c:if test="${oldPasswordError}">
+                        <div class="alert alert-danger" role="alert">
+                            <spring:message code="Password.oldPassword" />
+                        </div>
+                    </c:if>
+                    <c:if test="${confirmedNewPasswordError}">
+                        <div class="alert alert-danger" role="alert">
+                            <spring:message code="Password.mismatch"/>
+                        </div>
+                    </c:if>
 
                     <button type="submit" class="btn btn-primary w-100"> <spring:message code="changePassword.submit"/> </button>
                 </form:form>

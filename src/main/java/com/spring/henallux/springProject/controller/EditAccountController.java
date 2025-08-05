@@ -24,19 +24,13 @@ public class EditAccountController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String editForm(@SessionAttribute(Constants.CURRENT_USER) User user, Model model) {
-        model.addAttribute("editUserForm", new EditUserForm(user));
+        model.addAttribute("userForm", new EditUserForm(user));
         return "integrated:editAccount";
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String submitEdit(Model model, @SessionAttribute(Constants.CURRENT_USER) User user, @Valid @ModelAttribute(name = "editUserForm") EditUserForm editUserForm, final BindingResult errors) {
+    public String submitEdit(Model model, @SessionAttribute(Constants.CURRENT_USER) User user, @Valid @ModelAttribute(name = "userForm") EditUserForm editUserForm, final BindingResult errors) {
         if (errors.hasErrors()) {
-            ArrayList<String> validationErrors = new ArrayList<>();
-            for (FieldError error : errors.getFieldErrors()) {
-                validationErrors.add(error.getField() + ": " + error.getDefaultMessage());
-            }
-
-            model.addAttribute("validationErrors", validationErrors);
             return "integrated:editAccount";
         }
 

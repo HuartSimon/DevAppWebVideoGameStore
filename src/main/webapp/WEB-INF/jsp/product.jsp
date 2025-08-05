@@ -30,18 +30,8 @@
                 <spring:message code="product.quantity"/>
             </form:label>
             <form:input path="quantity" type="number" min="1" max="100000" step="1" value="1" cssClass="form-control"/>
+            <form:errors path="quantity" cssClass="text-danger"/>
         </div>
-
-        <c:if test="${not empty errors}">
-            <div class="alert alert-danger">
-                <strong><spring:message code="general.errorsTitle"/></strong>
-                <ul class="mb-0">
-                    <c:forEach items="${errors}" var="error">
-                        <li>${error}</li>
-                    </c:forEach>
-                </ul>
-            </div>
-        </c:if>
 
         <button type="submit" class="btn btn-primary">
             <spring:message code="product.addToCart"/>

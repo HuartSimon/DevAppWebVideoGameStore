@@ -1,5 +1,6 @@
 package com.spring.henallux.springProject.controller;
 
+import com.spring.henallux.springProject.model.CreateUserForm;
 import com.spring.henallux.springProject.model.User;
 import com.spring.henallux.springProject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import org.springframework.context.MessageSource;
 @SuppressWarnings("ALL")
 @Controller
 @RequestMapping(value = "/signUp")
+@SessionAttributes({Constants.CURRENT_USER})
 public class SignUpController {
     @Autowired
     private UserService userService;
@@ -32,36 +34,33 @@ public class SignUpController {
     private PasswordEncoder encoder;
 
     @ModelAttribute(Constants.CURRENT_USER)
-    public User currentUser() { return new User(); }
+    public User currentUser() {
+        return new User();
+    }
 
     @RequestMapping(method = RequestMethod.GET)
     public String signupForm(Model model) {
+        model.addAttribute("userForm", new CreateUserForm());
         return "integrated:signUp";
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String submitSignup(@RequestParam("confirmedPassword") String confirmedPassword, Model model, Locale locale, @Valid @ModelAttribute(value = Constants.CURRENT_USER) User user, BindingResult errors) {
+    public String submitSignup(Model model, Locale locale, @SessionAttribute(value = Constants.CURRENT_USER) User user, @Valid @ModelAttribute(name = "userForm") CreateUserForm userForm, BindingResult errors) {
 
-        if (userService.isUsernameAlreadyTaken(user.getUsername())) {
+        if (userService.isUsernameAlreadyTaken(userForm.getUsername())) {
             errors.rejectValue("username", "Username.Error.Unique");
         }
-        if (userService.isEmailAlreadyTaken(user.getEmail())) {
+        if (userService.isEmailAlreadyTaken(userForm.getEmail())) {
             errors.rejectValue("email", "Email.Error.Unique");
         }
-        if(!(user.getPassword().equals(confirmedPassword))) {
+        if(!(userForm.getPassword().equals(userForm.getConfirmPassword()))) {
             errors.rejectValue("password", "Password.Error");
         }
         if(errors.hasErrors()) {
             return "integrated:signUp";
         }
 
-        user.setAuthorities("ROLE_USER");
-        user.setAccountNonExpired(true);
-        user.setEnabled(true);
-        user.setCredentialsNonExpired(true);
-        user.setAccountNonLocked(true);
-        user.setPassword(encoder.encode(user.getPassword()));
-
+        user = new User(userForm, encoder.encode(userForm.getPassword()));
         userService.saveUser(user);
 
         return "redirect:login";
